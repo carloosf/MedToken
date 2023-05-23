@@ -1,4 +1,4 @@
-import React from 'react'
+import { useEffect, useState } from 'react'
 import { View, Text, StyleSheet } from 'react-native'
 
 interface TokenProps {
@@ -7,6 +7,13 @@ interface TokenProps {
 }
 
 export default function Token(props: TokenProps) {
+
+  const [ listToken, setListToken ] = useState([
+    [ "202205P04", '02/05/2023'],
+    [ "202205P02", '02/05/2023'],
+    [ "202205P02", '02/05/2023']
+  ])
+  
   return (
     <View style={[styles.tokenContainer, { backgroundColor: '#FFFFFF' }]}>
       <Text style={[styles.tokenText, { color: props.color }]}>
