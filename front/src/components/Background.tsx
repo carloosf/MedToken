@@ -7,19 +7,11 @@ interface BackgroundProps {
 
 export default function Background({ children }: BackgroundProps) {
   return (
-<<<<<<< Updated upstream
     <View style={styles.background}>
       {children}
     <StatusBar/>
     </View>
-=======
-    <View style={styles.background}>{children}
-      <StatusBar barStyle='default'/>
-    </View>
-
->>>>>>> Stashed changes
-  )
-}
+)}
 
 const styles = StyleSheet.create({
   background: {
