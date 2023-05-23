@@ -1,12 +1,31 @@
-import { View, Text } from 'react-native'
+import React from 'react'
+import { View, Text, StyleSheet } from 'react-native'
 
-interface TokenProps{
-    token: string
+interface TokenProps {
+  token: string
+  color: string
 }
-export default function Token(props) {
+
+export default function Token(props: TokenProps) {
   return (
-    <View>
-      <Text>{props.token}</Text>
+    <View style={[styles.tokenContainer, { backgroundColor: '#FFFFFF' }]}>
+      <Text style={[styles.tokenText, { color: props.color }]}>
+        {props.token}
+      </Text>
     </View>
   )
 }
+
+const styles = StyleSheet.create({
+  tokenContainer: {
+    width: 150,
+    height: 50,
+    borderRadius: 10,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  tokenText: {
+    fontSize: 16,
+    fontWeight: 'bold',
+  },
+})
