@@ -3,36 +3,43 @@ import Token from './Token'
 import { Text, StyleSheet, View, Image, ActivityIndicator } from 'react-native'
 import { useFonts, Oswald_400Regular } from '@expo-google-fonts/oswald'
 
-export default function Home() {
+interface HomeProps {
+  children: React.ReactNode
+}
+
+export default function Home({ children }: HomeProps) {
   return (
     <View>
       <View style={styles.container}>
         <Image source={require('../../assets/images/logo-ofc.png')} />
-        <Token token="teste" color="teste" />
+        <Token idToken="teste" color="black" />
+      </View>
+      <View style={styles.historico}>
+        <Text style={styles.textHistorico}>Histórico de Solicitações</Text>
+        <Token idToken="teste" color="black" />
+        <Token idToken="teste" color="black" />
+        <Token idToken="teste" color="black" />
+        <Token idToken="teste" color="black" />
+        <Token idToken="teste" color="black" />
       </View>
     </View>
   )
 }
 
 const styles = StyleSheet.create({
-  btnStyle: {
-    backgroundColor: '#fff',
-    padding: 16,
-    width: 200,
-    alignContent: 'center',
-    justifyContent: 'center',
-    borderRadius: 15,
-  },
-  textBtn: {
-    color: '#4F4343',
-    fontSize: 20,
-    fontWeight: 'bold',
-    textAlign: 'center',
-    fontFamily: 'Oswald_400Regular',
-  },
   container: {
     borderBottomColor: '#fff',
-    borderBottomWidth: 100,
-    borderBottom: 1,
+    borderBottomWidth: 2,
+    padding: 50,
+  },
+  historico: {
+    padding: 50,
+    justifyContent: 'space-around',
+    alignItems: 'center',
+    height: 450,
+  },
+  textHistorico: {
+    color: '#fff',
+    fontSize: 20,
   },
 })

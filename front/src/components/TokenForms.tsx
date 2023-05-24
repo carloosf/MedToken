@@ -1,9 +1,19 @@
 /* eslint-disable jsx-a11y/alt-text */
 import React, { useState } from 'react'
-import { StyleSheet, View, TextInput, Image, Text } from 'react-native'
+import { StyleSheet, 
+  View,
+  TextInput,
+  Image,
+  Text,
+  SafeAreaView,
+  StatusBar,
+  KeyboardAvoidingView } from 'react-native'
 // eslint-disable-next-line camelcase
 import { useFonts, Oswald_400Regular } from '@expo-google-fonts/oswald'
 import ModalDropdown from 'react-native-modal-dropdown'
+import { useNavigation } from '@react-navigation/native'
+import { CommonActions } from '@react-navigation/native'
+
 import Button from './Button'
 
 export default function TokenForms() {
@@ -12,6 +22,7 @@ export default function TokenForms() {
   const [nome, setNome] = useState('')
   const [ficha, setFicha] = useState('')
   const dataAtual = new Date()
+  const navigation = useNavigation()
 
   const day = ('0' + dataAtual.getDate()).slice(-2)
   const month = ('0' + (dataAtual.getMonth() + 1)).slice(-2)
@@ -36,6 +47,14 @@ export default function TokenForms() {
       .then((response) => response.json())
       .then((data) => {
         console.log('Response:', data)
+        if (data.status === 201) {
+          navigation.dispatch(
+            CommonActions.reset({
+              index: 0,
+              routes: [{ name: 'Home' }],
+            }),
+          )
+        }
       })
       .catch((error) => {
         console.error('Error:', error)
@@ -44,7 +63,6 @@ export default function TokenForms() {
       setIsLoading(false)
     }, 1000)
   }
-  //const handleDropdownSelect = (e){}
 
   const handleNomeChange = (text) => {
     setNome(text)
@@ -61,8 +79,10 @@ export default function TokenForms() {
     return null
   } else {
     return (
-      <View style={styles.container}>
-        <Text> Solicitação de Token </Text>
+      <SafeAreaView style={styles.container}>
+        <StatusBar backgroundColor="#293645" />
+        <Text style={styles.title}> Solicitação de Token </Text>
+        <KeyboardAvoidingView behavior='padding'>
         <View style={styles.form}>
           <TextInput
             testID="token"
@@ -75,18 +95,19 @@ export default function TokenForms() {
           />
           <ModalDropdown
             options={dropdownOptions}
-            defaultValue="Selecione uma opção..."
+              defaultValue="Selecione uma opção..."
             style={[styles.input]}
-            textStyle={styles.dropdownText}
-            dropdownStyle={styles.dropdownContainer}
+              textStyle={styles.dropdownText}
+              dropdownStyle={styles.dropdownContainer}
             dropdownTextStyle={styles.dropdownItemText}
-            onSelect={handleDropdownSelect}
+              onSelect={handleDropdownSelect}
           />
 
           <Button isLoading={loading} onPress={api} />
           <Image source={require('../../assets/images/logo-ofc.png')} />
         </View>
-      </View>
+        </KeyboardAvoidingView>
+      </SafeAreaView>
     )
   }
 }
@@ -95,15 +116,20 @@ const styles = StyleSheet.create({
   container: {
     width: '100%',
     height: '100%',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   form: {
     margin: 30,
+    height: 350,
+    justifyContent: 'space-around',
+    alignItems: 'center',
   },
   input: {
     backgroundColor: 'white',
     width: '70%',
     fontSize: 20,
-    borderRadius: 2,
+    borderRadius: 20,
     borderWidth: 1,
     borderColor: 'gray',
     padding: 15,
@@ -125,5 +151,10 @@ const styles = StyleSheet.create({
   selectedItemText: {
     marginTop: 20,
     fontSize: 16,
+  },
+  title: {
+    color: '#fff',
+    fontSize: 20,
+    fontFamily: 'Oswald_400Regular',
   },
 })

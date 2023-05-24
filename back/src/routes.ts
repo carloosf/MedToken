@@ -14,13 +14,18 @@ interface CreateTokenRequest {
 
 router.post('/', async (req: Request<CreateTokenRequest>, res: Response) => {
   const { token, nome, data } = req.body;
+  const datas =  {
+    token: token,
+    nome: nome,
+    data: data
+  }
 
   try {
     const newToken = await prisma.token.create({
       data: {
-        token,
-        nome,
-        data
+        token: token,
+        nome: nome,
+        data: data
       },
     }) 
 
@@ -28,7 +33,7 @@ router.post('/', async (req: Request<CreateTokenRequest>, res: Response) => {
   } catch (error) {
     console.error(error)
     
-    res.status(500).send({ error: 'Falha ao criar o token' })
+    res.status(500).send({ error: 'Falha ao criar o token' +  datas})
   }
 })
 

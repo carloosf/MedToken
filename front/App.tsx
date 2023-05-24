@@ -1,11 +1,5 @@
-// import TokenForms from './src/components/TokenForms'
-import Home from './src/components/Home'
-import Background from './src/components/Background'
+import Routes from './src/screens/routers'
 
 export default function App() {
-  return (
-    <Background>
-      <Home />
-    </Background>
-  )
+  return <Routes></Routes>
 }

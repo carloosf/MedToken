@@ -5,7 +5,7 @@ import { View, Text, StyleSheet } from 'react-native'
 import { useFonts, Oswald_400Regular } from '@expo-google-fonts/oswald'
 
 interface TokenProps {
-  token: string
+  idToken: string
   color: string
 }
 
@@ -27,7 +27,7 @@ export default function Token(props: TokenProps) {
     return (
       <View style={styles.tokenContainer}>
         <Text style={[styles.tokenText, { color: props.color }]}>
-          {props.token}
+          {props.idToken}
         </Text>
       </View>
     )
