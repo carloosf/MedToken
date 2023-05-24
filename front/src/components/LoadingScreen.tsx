@@ -1,8 +1,14 @@
 import React from 'react'
 import { Text, StyleSheet, Image } from 'react-native'
 import Background from './Background'
+import { useFonts, Oswald_400Regular } from '@expo-google-fonts/oswald'
 
 export default function LoadingScreen() {
+
+  const [fontLoaded] =useFonts({
+    Oswald_400Regular
+  })
+
   return (
     <Background>
       <Image style={styles.logoMedToken} source={require('../../assets/images/logo-ofc.png')}/>
@@ -20,13 +26,12 @@ const styles = StyleSheet.create({
     flexWrap: 'wrap',
     width: '80%',
     color: 'white',
-    fontFamily: 'RubikPuddles-Regular.ttf',
-    fontSize: '1rem',
+    fontFamily: 'Oswald_400Regular',
+  //   fontSize: '1rem',
     
   },
   logoMedToken:{
-    width: '2rem',
-    height: '2rem',
-    marginBottom: '1rem'
+  //   width: '20%',
+  //   height: 'auto',
   }
 })
