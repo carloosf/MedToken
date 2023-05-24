@@ -18,8 +18,8 @@
           <b>Carlos Silva</b>
         </sub>
       </a>
-      
     </td>
+  
     <td align="center">
       <a href="https://www.linkedin.com/in/iamsamarav/">
        <img src="https://avatars.githubusercontent.com/iamsamarav" 
