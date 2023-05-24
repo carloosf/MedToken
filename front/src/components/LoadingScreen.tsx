@@ -1,10 +1,12 @@
 import React from 'react'
 import { Text, StyleSheet, Image } from 'react-native'
 import Background from './Background'
+// eslint-disable-next-line camelcase
 import { useFonts, Oswald_400Regular } from '@expo-google-fonts/oswald'
 
 export default function LoadingScreen() {
   const [fontLoaded] = useFonts({
+    // eslint-disable-next-line camelcase
     Oswald_400Regular,
   })
   if (!fontLoaded) {

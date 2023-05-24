@@ -11,13 +11,14 @@ interface CreateTokenRequest {
 }
 
 router.post('/', async (req: Request<CreateTokenRequest>, res: Response) => {
-  const { token, nome } = req.body;
+  const { token, nome, dataFormatada } = req.body;
 
   try {
     const newToken = await prisma.token.create({
       data: {
         token,
         nome,
+        dataFormatada,
       },
     });
 

@@ -1,5 +1,7 @@
+/* eslint-disable no-unused-vars */
 import { useState } from 'react'
 import { View, Text, StyleSheet } from 'react-native'
+// eslint-disable-next-line camelcase
 import { useFonts, Oswald_400Regular } from '@expo-google-fonts/oswald'
 
 interface TokenProps {
@@ -9,6 +11,7 @@ interface TokenProps {
 
 export default function Token(props: TokenProps) {
   const [fontLoaded] = useFonts({
+    // eslint-disable-next-line camelcase
     Oswald_400Regular,
   })
 
