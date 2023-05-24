@@ -19,7 +19,7 @@ export default function TokenForms() {
         <Image source={require('../../assets/images/logo-ofc.png')} />
         <View style={styles.form}>
           <TextInput
-            style={styles.input}
+            style={[styles.input, styles.inputName]}
             autoComplete="name"
             autoCapitalize="words"
             placeholder="Digite seu nome aqui"
@@ -28,7 +28,7 @@ export default function TokenForms() {
             options={dropdownOptions}
             defaultValue="Selecione uma opção..."
             onSelect={handleDropdownSelect}
-            style={styles.dropdown}
+            style={[styles.input, styles.dropdown]}
             textStyle={styles.dropdownText}
             dropdownStyle={styles.dropdownContainer}
             dropdownTextStyle={styles.dropdownItemText}
@@ -50,16 +50,19 @@ const styles = StyleSheet.create({
     margin: 30,
   },
   input: {
-    borderWidth: 1,
-    borderColor: 'white',
-    fontSize: 20,
+    backgroundColor: 'white',
     width: '70%',
+    fontSize: 20,
+  },
+  inputName: {
+
   },
   dropdown: {
+    backgroundColor: 'white',
     width: 200,
     borderWidth: 1,
     borderColor: 'gray',
-    borderRadius: 4,
+    borderRadius: 2,
     padding: 10,
   },
   dropdownText: {
@@ -67,8 +70,6 @@ const styles = StyleSheet.create({
   },
   dropdownContainer: {
     width: 200,
-    borderRadius: 4,
-    borderWidth: 1,
     borderColor: 'gray',
   },
   dropdownItemText: {
