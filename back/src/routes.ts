@@ -10,7 +10,7 @@ interface CreateTokenRequest {
   nome: string
 }
 
-router.post('/', async (req: Request<any, any, CreateTokenRequest>, res: Response) => {
+router.post('/', async (req: Request<CreateTokenRequest>, res: Response) => {
   const { token, nome } = req.body;
 
   try {
