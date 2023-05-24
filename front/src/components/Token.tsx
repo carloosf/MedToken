@@ -8,33 +8,32 @@ interface TokenProps {
 }
 
 export default function Token(props: TokenProps) {
-
-  const [fontLoaded] =useFonts({
-    Oswald_400Regular
+  const [fontLoaded] = useFonts({
+    Oswald_400Regular,
   })
 
-  const [ listToken, setListToken ] = useState([
-    [ "202205P04", '02/05/2023'],
-    [ "202205P02", '02/05/2023'],
-    [ "202205P02", '02/05/2023']
+  const [listToken, setListToken] = useState([
+    ['202205P04', '02/05/2023'],
+    ['202205P02', '02/05/2023'],
+    ['202205P02', '02/05/2023'],
   ])
 
-  if(!fontLoaded){
+  if (!fontLoaded) {
     return null
-  }else{
-  
-  return (
-    <View style={[styles.tokenContainer, { backgroundColor: '#FFFFFF' }]}>
-      <Text style={[styles.tokenText, { color: props.color }]}>
-        {props.token}
-      </Text>
-    </View>
-  )
-}}
+  } else {
+    return (
+      <View style={[styles.tokenContainer, { backgroundColor: '#FFFFFF' }]}>
+        <Text style={[styles.tokenText, { color: props.color }]}>
+          {props.token}
+        </Text>
+      </View>
+    )
+  }
+}
 
 const styles = StyleSheet.create({
   tokenContainer: {
-    width: 150,
+    width: 10,
     height: 50,
     borderRadius: 10,
     alignItems: 'center',
@@ -43,6 +42,6 @@ const styles = StyleSheet.create({
   tokenText: {
     fontSize: 16,
     fontWeight: 'bold',
-    fontFamily: 'Oswald_400Regular'
+    fontFamily: 'Oswald_400Regular',
   },
 })
