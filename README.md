@@ -1,8 +1,8 @@
 # [MedToken]
 
 ## :page_facing_up: Sobre o Projeto
-- Este projeto trata-se de um aplicativo de tokens voltados a hospitais, o projeto é para um projeto da faculdade.
-- Criado em 20/05/2023
+ - Este projeto trata-se de um aplicativo de tokens voltados a hospitais, o projeto é para um projeto da faculdade.
+ - Criado em 20/05/2023
 ---
 
 ## :man_technologist:  Autores
@@ -19,7 +19,6 @@
         </sub>
       </a>
     </td>
-  
     <td align="center">
       <a href="https://www.linkedin.com/in/iamsamarav/">
        <img src="https://avatars.githubusercontent.com/iamsamarav" 
@@ -32,7 +31,13 @@
     </td>
   </tr>
 </table>   
-
+<h4>Carlos Silva - Contatos</h4>
+   Linkedin:
+   https://www.linkedin.com/in/ccarlossilv/
+   
+   E-mail: contato.carlossilvaf@gmail.com
+   
+   <h4>Samara Vitoria - Contatos</h4>
    Linkedin:
    https://www.linkedin.com/in/ccarlossilv/
    
