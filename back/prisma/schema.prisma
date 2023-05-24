@@ -8,7 +8,7 @@ datasource db {
 }
 
 model Token {
-  token String   @id
+  token String   @id @unique
   nome  String
-  data  DateTime @default(now())
+  data  String
 }

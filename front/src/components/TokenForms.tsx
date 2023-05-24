@@ -26,7 +26,7 @@ export default function TokenForms() {
 
   const api = function () {
     setIsLoading(true)
-    fetch('https://192.168.1.17/3000', {
+    fetch('http://192.168.1.100:3000', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

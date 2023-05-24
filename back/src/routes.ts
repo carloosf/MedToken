@@ -1,3 +1,4 @@
+import { log } from 'console';
 import { Request, Response } from 'express'
 const express = require('express')
 const { PrismaClient } = require('@prisma/client');
@@ -8,25 +9,31 @@ const router = express.Router()
 interface CreateTokenRequest {
   token: string
   nome: string
+  data: string
 }
 
 router.post('/', async (req: Request<CreateTokenRequest>, res: Response) => {
-  const { token, nome, dataFormatada } = req.body;
+  const { token, nome, data } = req.body;
 
   try {
     const newToken = await prisma.token.create({
       data: {
         token,
         nome,
-        dataFormatada,
+        data
       },
-    });
+    }) 
 
-    res.status(201).json(newToken);
+    res.status(201).json(newToken)
   } catch (error) {
-    console.error(error);
-    res.status(500).json({ error: 'Falha ao criar o token' });
+    console.error(error)
+    
+    res.status(500).send({ error: 'Falha ao criar o token' })
   }
 })
 
+
+router.get('/', async (req: Request, res: Response) => {
+
+})
 export default router
