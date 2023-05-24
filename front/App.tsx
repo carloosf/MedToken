@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react'
-
 import LoadingScreen from './src/components/LoadingScreen'
-import Token from './src/components/Token'
+import TokenForms from './src/components/TokenForms'
 import Background from './src/components/Background'
 
 export default function App() {
@@ -9,12 +8,12 @@ export default function App() {
   useEffect(() => {
     setTimeout(() => {
       setLoading(false)
-    }, 5000)
+    }, 3000)
   }, [])
 
   return (
     <Background>
-      {Loading ? <LoadingScreen /> : <Token token="2023050102" color="black" />}
+      {Loading ? <LoadingScreen /> : <TokenForms/>}
     </Background>
   )
 }
