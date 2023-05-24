@@ -11,9 +11,5 @@ export default function App() {
     }, 3000)
   }, [])
 
-  return (
-    <Background>
-      {Loading ? <LoadingScreen /> : <TokenForms/>}
-    </Background>
-  )
+  return <Background>{Loading ? <LoadingScreen /> : <TokenForms />}</Background>
 }

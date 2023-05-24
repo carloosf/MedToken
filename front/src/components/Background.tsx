@@ -7,10 +7,10 @@ interface BackgroundProps {
 
 export default function Background({ children }: BackgroundProps) {
   return (
-    <View style={styles.background}>{children}
-      <StatusBar barStyle='default'/>
+    <View style={styles.background}>
+      {children}
+      <StatusBar barStyle="default" />
     </View>
-
   )
 }
 

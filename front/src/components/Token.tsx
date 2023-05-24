@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { View, Text, StyleSheet } from 'react-native'
 import { useFonts, Oswald_400Regular } from '@expo-google-fonts/oswald'
 
