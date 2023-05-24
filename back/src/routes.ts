@@ -1,10 +1,16 @@
-import app from "./app";
-
+import { Request, Response } from 'express'
+const express = require('express')
 const { PrismaClient } = require('@prisma/client');
 const prisma = new PrismaClient();
 
+const router = express.Router()
 
-app.Router.post('/', async (req, res) => {
+interface CreateTokenRequest {
+  token: string
+  nome: string
+}
+
+router.post('/', async (req: Request<any, any, CreateTokenRequest>, res: Response) => {
   const { token, nome } = req.body;
 
   try {
@@ -21,3 +27,5 @@ app.Router.post('/', async (req, res) => {
     res.status(500).json({ error: 'Falha ao criar o token' });
   }
 })
+
+export default router
