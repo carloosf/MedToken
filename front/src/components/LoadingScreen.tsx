@@ -8,7 +8,9 @@ export default function LoadingScreen() {
   const [fontLoaded] =useFonts({
     Oswald_400Regular
   })
-
+  if(!fontLoaded){
+    return null
+  }else{
   return (
     <Background>
       <Image style={styles.logoMedToken} source={require('../../assets/images/logo-ofc.png')}/>
@@ -18,20 +20,19 @@ export default function LoadingScreen() {
       </Text>
     </Background>
   )
-}
+}}
 
 const styles = StyleSheet.create({
   loadingText: {
     textAlign: 'center',
     flexWrap: 'wrap',
-    width: '80%',
+    width: 300,
     color: 'white',
     fontFamily: 'Oswald_400Regular',
-  //   fontSize: '1rem',
-    
+    fontSize: 15
   },
   logoMedToken:{
-  //   width: '20%',
-  //   height: 'auto',
+    marginBottom: 15,
+    width: 20,
   }
 })

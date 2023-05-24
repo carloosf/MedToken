@@ -21,7 +21,7 @@ export default function Token(props: TokenProps) {
 
   if(!fontLoaded){
     return null
-  }
+  }else{
   
   return (
     <View style={[styles.tokenContainer, { backgroundColor: '#FFFFFF' }]}>
@@ -30,7 +30,7 @@ export default function Token(props: TokenProps) {
       </Text>
     </View>
   )
-}
+}}
 
 const styles = StyleSheet.create({
   tokenContainer: {
