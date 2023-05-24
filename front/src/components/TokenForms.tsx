@@ -14,6 +14,7 @@ export default function TokenForms() {
         <Image source={require('../../assets/images/logo-ofc.png')} />
         <View>
           <TextInput
+          style={styles.input}
             autoComplete="name"
             autoCapitalize="words"
             placeholder="Digite seu nome aqui"
@@ -42,5 +43,11 @@ const styles = StyleSheet.create({
     fontSize: 15,
     tintColor: 'black',
     backgroundColor: '#fff',
+  },
+  input: {
+    borderWidth: 1,
+    borderColor: 'white',
+    fontSize: 20,
+    width: '70%',
   },
 })
