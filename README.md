@@ -1,12 +1,11 @@
-# [Oper - Seleção]
+# [MedToken]
 
 ## :page_facing_up: Sobre o Projeto
-- Este projeto trata-se de um miniblog onde o teste é consumir API e bater todos os requisitos propostos no teste.
-- Criado em 17/04/2023
+- Este projeto trata-se de um aplicativo de tokens voltados a hospitais, o projeto é para um projeto da faculdade.
+- Criado em 20/05/2023
 ---
 
----
-## :man_technologist:  Autor
+## :man_technologist:  Autores
 
 <table class="author">
   <tr>
@@ -19,6 +18,7 @@
           <b>Carlos Silva</b>
         </sub>
       </a>
+      
     </td>
     <td align="center">
       <a href="https://www.linkedin.com/in/iamsamarav/">
@@ -26,12 +26,13 @@
         width="100px;" alt="Samara Vitoria"/>
         <br/>
         <sub>
-          <b>Carlos Silva</b>
+          <b>Samara Vitoria</b>
         </sub>
       </a>
     </td>
   </tr>
 </table>   
+
    Linkedin:
    https://www.linkedin.com/in/ccarlossilv/
    
