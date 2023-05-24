@@ -1,7 +1,7 @@
 import React from 'react'
 import { StyleSheet, View, TextInput, Button, Image } from 'react-native'
 import { useFonts, Oswald_400Regular } from '@expo-google-fonts/oswald'
-import RNPickerSelect from 'react-native-picker-select'
+// import RNPickerSelect from 'react-native-picker-select'
 
 export default function TokenForms() {
   const [fontLoaded] = useFonts({
@@ -13,24 +13,20 @@ export default function TokenForms() {
     return (
       <View>
         <Image source={require('../../assets/images/logo-ofc.png')} />
-        <View>
           <TextInput
             autoComplete="name"
             autoCapitalize="words"
             placeholder="Digite seu nome aqui"
           />
-          <RNPickerSelect
+          {/* <RNPickerSelect
             onValueChange={(value) => console.log(value)}
             items={[
               { label: 'Token Prioritário', value: 'Token prioritário' },
               { label: 'Token Geral', value: 'Token prioritário' },
               { label: 'Token Exames', value: 'Token prioritário' },
             ]}
-          />
-        </View>
-        <View style={styles.send}>
-          <Button title="Solicitar token" />
-        </View>
+          /> */}
+          <Button style={styles.send} title="Solicitar token" />
       </View>
     )
   }
