@@ -8,7 +8,8 @@ datasource db {
 }
 
 model Token {
-  token String   @id @unique
+  token String @id @unique
   nome  String
   data  String
+  tipoExame  String
 }

@@ -30,13 +30,16 @@ export default function TokenForms() {
   const dataFormatada = `${day}/${month}/${year}`
 
   const data = {
+    token: '150646',
     nome,
-    ficha,
-    dataAtual: dataFormatada,
+    tipoExame: ficha,
+    data: dataFormatada,
   }
 
   const api = function () {
     setIsLoading(true)
+    console.log(data)
+
     fetch('http://192.168.1.100:3000', {
       method: 'POST',
       headers: {
@@ -85,14 +88,14 @@ export default function TokenForms() {
         <KeyboardAvoidingView behavior='padding'>
         <View style={styles.form}>
           <TextInput
-            testID="token"
-            style={[styles.input, styles.inputName]}
-            placeholderTextColor="#7E998D"
-            autoComplete="name"
-            autoCapitalize="words"
-            placeholder="Digite seu nome aqui"
-            onChangeText={handleNomeChange}
-          />
+              testID="token"
+              style={[styles.input, styles.inputName]}
+              placeholderTextColor="#7E998D"
+              autoComplete="name"
+              autoCapitalize="words"
+              placeholder="Digite seu nome aqui"
+              onChangeText={handleNomeChange}
+            />
           <ModalDropdown
             options={dropdownOptions}
               defaultValue="Selecione uma opção..."
