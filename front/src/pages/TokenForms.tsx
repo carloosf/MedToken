@@ -21,7 +21,7 @@ export default function TokenForms() {
   const dropdownOptions = ['Preferencial', 'Geral', 'Exame']
 
   const [nome, setNome] = useState('')
-  const [tipoExame, setTipoExame] = useState('')
+  const [tipoToken, setTipoToken] = useState('')
 
   const dataAtual = new Date()
   const navigation = useNavigation()
@@ -38,8 +38,9 @@ export default function TokenForms() {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
+        token: 'abcv',
         nome,
-        tipoExame,
+        tipoToken,
         data: dataFormatada,
       }),
     })
@@ -63,11 +64,11 @@ export default function TokenForms() {
     }, 1000)
   }
 
-  const handleNomeChange = (text) => {
+  const handleNameChange = (text) => {
     setNome(text)
   }
   const handleDropdownSelect = (index, value) => {
-    setTipoExame(value)
+    setTipoToken(value)
   }
 
   const [fontLoaded] = useFonts({
@@ -90,7 +91,7 @@ export default function TokenForms() {
                 autoComplete="name"
                 autoCapitalize="words"
                 placeholder="Digite seu nome aqui"
-                onChangeText={handleNomeChange}
+                onChangeText={handleNameChange}
               />
             </View>
             <View>

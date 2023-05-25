@@ -10,11 +10,11 @@ interface CreateTokenRequest {
   token: string
   nome: string
   data: string
-  tipoExame: string
+  tipoToken: string
 }
 
 router.post('/', async (req: Request<CreateTokenRequest>, res: Response) => {
-  const { token, nome, data, tipoExame } = req.body;
+  const { token, nome, data, tipoToken } = req.body;
 
   try {
     const newToken = await prisma.token.create({
@@ -22,7 +22,7 @@ router.post('/', async (req: Request<CreateTokenRequest>, res: Response) => {
         token,
         nome,
         data,
-        tipoExame
+        tipoToken
       },
     })
 
@@ -34,8 +34,8 @@ router.post('/', async (req: Request<CreateTokenRequest>, res: Response) => {
   }
 })
 
-
 router.get('/token', async (req: Request, res: Response) => {
 
 })
+
 export default router

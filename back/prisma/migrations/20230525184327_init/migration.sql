@@ -3,7 +3,7 @@ CREATE TABLE "Token" (
     "token" TEXT NOT NULL PRIMARY KEY,
     "nome" TEXT NOT NULL,
     "data" TEXT NOT NULL,
-    "tipoExame" TEXT NOT NULL
+    "tipoToken" TEXT NOT NULL
 );
 
 -- CreateIndex
