@@ -1,8 +1,8 @@
+/* eslint-disable camelcase */
 /* eslint-disable jsx-a11y/alt-text */
 import React from 'react'
 import Token from '../components/Token'
-import { Text, StyleSheet, View, Image, ActivityIndicator } from 'react-native'
-// eslint-disable-next-line camelcase
+import { Text, StyleSheet, View, Image } from 'react-native'
 import { useFonts, Oswald_400Regular } from '@expo-google-fonts/oswald'
 
 interface HomeProps {
@@ -10,22 +10,29 @@ interface HomeProps {
 }
 
 export default function Home({ children }: HomeProps) {
-  return (
-    <View>
-      <View style={styles.container}>
-        <Image source={require('../../assets/images/logo-ofc.png')} />
-        <Token idToken="teste" color="black" />
+  const [fontLoaded] = useFonts({
+    Oswald_400Regular,
+  })
+  if (!fontLoaded) {
+    return null
+  } else {
+    return (
+      <View>
+        <View style={styles.container}>
+          <Image source={require('../../assets/images/logo-ofc.png')} />
+          <Token idToken="teste" color="black" />
+        </View>
+        <View style={styles.historico}>
+          <Text style={styles.textHistorico}>Histórico de Solicitações</Text>
+          <Token idToken="teste" color="black" />
+          <Token idToken="teste" color="black" />
+          <Token idToken="teste" color="black" />
+          <Token idToken="teste" color="black" />
+          <Token idToken="teste" color="black" />
+        </View>
       </View>
-      <View style={styles.historico}>
-        <Text style={styles.textHistorico}>Histórico de Solicitações</Text>
-        <Token idToken="teste" color="black" />
-        <Token idToken="teste" color="black" />
-        <Token idToken="teste" color="black" />
-        <Token idToken="teste" color="black" />
-        <Token idToken="teste" color="black" />
-      </View>
-    </View>
-  )
+    )
+  }
 }
 
 const styles = StyleSheet.create({

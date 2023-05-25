@@ -14,11 +14,7 @@ import {
 import { useFonts, Oswald_400Regular } from '@expo-google-fonts/oswald'
 import ModalDropdown from 'react-native-modal-dropdown'
 import { useNavigation, CommonActions } from '@react-navigation/native'
-
-import GetToken from '../handlers/getToken'
 import Button from '../components/Button'
-
-const BASE_URL = 'http://192.168.1.16:3000'
 
 export default function TokenForms() {
   const [loading, setIsLoading] = useState(false)
@@ -26,35 +22,22 @@ export default function TokenForms() {
 
   const [nome, setNome] = useState('')
   const [tipoExame, setTipoExame] = useState('')
-  const [token, setToken] = useState('')
 
   const dataAtual = new Date()
   const navigation = useNavigation()
-
   const day = ('0' + dataAtual.getDate()).slice(-2)
   const month = ('0' + (dataAtual.getMonth() + 1)).slice(-2)
   const year = dataAtual.getFullYear()
   const dataFormatada = `${day}/${month}/${year}`
 
-  useEffect(() => {
-    GetToken(BASE_URL)
-      .then((data) => {})
-      .catch((error) => {
-        console.error(error)
-      })
-  }, [])
-
-  const handlerButton = function () {
+  const handlerButton = async function () {
     setIsLoading(true)
-    setToken(GetToken(BASE_URL))
-
     fetch('http://192.168.1.16:3000', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        token: 'aa',
         nome,
         tipoExame,
         data: dataFormatada,
