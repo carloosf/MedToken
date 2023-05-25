@@ -12,7 +12,7 @@ export const getToken = async (opcao: String) => {
         data: 'desc',
       },
       where: {
-        tipoExame: {opcao}
+        tipoExame: { opcao },
       }
     });
 
