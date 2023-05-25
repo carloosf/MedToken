@@ -1,5 +1,6 @@
+/* eslint-disable camelcase */
 /* eslint-disable jsx-a11y/alt-text */
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import {
   StyleSheet,
   View,
@@ -10,18 +11,23 @@ import {
   StatusBar,
   KeyboardAvoidingView,
 } from 'react-native'
-// eslint-disable-next-line camelcase
 import { useFonts, Oswald_400Regular } from '@expo-google-fonts/oswald'
 import ModalDropdown from 'react-native-modal-dropdown'
 import { useNavigation, CommonActions } from '@react-navigation/native'
 
+import GetToken from '../handlers/getToken'
 import Button from '../components/Button'
+
+const BASE_URL = 'http://192.168.1.16:3000'
 
 export default function TokenForms() {
   const [loading, setIsLoading] = useState(false)
   const dropdownOptions = ['Preferencial', 'Geral', 'Exame']
+
   const [nome, setNome] = useState('')
-  const [ficha, setFicha] = useState('')
+  const [tipoExame, setTipoExame] = useState('')
+  const [token, setToken] = useState('')
+
   const dataAtual = new Date()
   const navigation = useNavigation()
 
@@ -30,23 +36,29 @@ export default function TokenForms() {
   const year = dataAtual.getFullYear()
   const dataFormatada = `${day}/${month}/${year}`
 
-  const data = {
-    token: '150a646',
-    nome,
-    tipoExame: ficha,
-    data: dataFormatada,
-  }
+  useEffect(() => {
+    GetToken(BASE_URL)
+      .then((data) => {})
+      .catch((error) => {
+        console.error(error)
+      })
+  }, [])
 
   const handlerButton = function () {
     setIsLoading(true)
-    console.log(data)
+    setToken(GetToken(BASE_URL))
 
     fetch('http://192.168.1.16:3000', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify(data),
+      body: JSON.stringify({
+        token: 'aa',
+        nome,
+        tipoExame,
+        data: dataFormatada,
+      }),
     })
       .then((response) => response.json())
       .then((data) => {
@@ -72,11 +84,10 @@ export default function TokenForms() {
     setNome(text)
   }
   const handleDropdownSelect = (index, value) => {
-    setFicha(value)
+    setTipoExame(value)
   }
 
   const [fontLoaded] = useFonts({
-    // eslint-disable-next-line camelcase
     Oswald_400Regular,
   })
   if (!fontLoaded) {
@@ -113,9 +124,10 @@ export default function TokenForms() {
             </View>
             <Button isLoading={loading} onPress={handlerButton} />
           </View>
-          <View style={styles.logo}>
-            <Image source={require('../../assets/images/logo-ofc.png')} />
-          </View>
+          <Image
+            source={require('../../assets/images/logo-ofc.png')}
+            style={styles.logo}
+          />
         </KeyboardAvoidingView>
       </SafeAreaView>
     )
@@ -134,12 +146,11 @@ const styles = StyleSheet.create({
     borderColor: 'white',
     borderWidth: 2,
     borderRadius: 10,
-    margin: '10%',
-    height: '60%',
-    width: '100%',
-    justifyContent: 'center',
+    marginBottom: '20%',
+    marginTop: '10%',
+    height: 350,
     alignItems: 'center',
-    gap: 30,
+    gap: 10,
   },
   input: {
     backgroundColor: 'white',
@@ -165,7 +176,7 @@ const styles = StyleSheet.create({
   },
   title: {
     color: '#fff',
-    fontSize: 23,
+    fontSize: 30,
     fontFamily: 'Oswald_400Regular',
   },
   label: {
@@ -175,7 +186,9 @@ const styles = StyleSheet.create({
     fontFamily: 'Oswald_400Regular',
   },
   logo: {
-    marginTop: 40,
     alignSelf: 'center',
+    justifyContent: 'center',
+    width: 40,
+    height: 40,
   },
 })

@@ -42,8 +42,9 @@ export default function LoadingScreen({
 const styles = StyleSheet.create({
   btnStyle: {
     backgroundColor: '#fff',
-    padding: 16,
-    width: 200,
+    padding: 10,
+    marginTop: '10%',
+    width: 150,
     alignContent: 'center',
     justifyContent: 'center',
     borderRadius: 15,
