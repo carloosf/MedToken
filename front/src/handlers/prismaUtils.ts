@@ -1,24 +1,24 @@
 import { PrismaClient } from '@prisma/client'
 const prisma = new PrismaClient()
 
-interface Prisma{
+interface Prisma {
   opcao: String
 }
 
-export const getToken = async (opcao: String) => {
+export async function getToken(opcao: String) {
   try {
     const token = await prisma.token.findFirst({
       orderBy: {
         data: 'desc',
       },
       where: {
-        tipoToken: {opcao}
-      }
-    });
+        tipoToken: { opcao },
+      },
+    })
 
-    return token;
+    return token
   } catch (error) {
     console.error('Error:', error)
     throw error
   }
-};
+}

@@ -15,6 +15,8 @@ import { useFonts, Oswald_400Regular } from '@expo-google-fonts/oswald'
 import ModalDropdown from 'react-native-modal-dropdown'
 import { useNavigation, CommonActions } from '@react-navigation/native'
 import Button from '../components/Button'
+import Data from '../handlers/dataAtual'
+import HandlerToken from '../handlers/handlerToken'
 
 export default function TokenForms() {
   const [loading, setIsLoading] = useState(false)
@@ -23,30 +25,25 @@ export default function TokenForms() {
   const [nome, setNome] = useState('')
   const [tipoToken, setTipoToken] = useState('')
 
-  const dataAtual = new Date()
   const navigation = useNavigation()
-  const day = ('0' + dataAtual.getDate()).slice(-2)
-  const month = ('0' + (dataAtual.getMonth() + 1)).slice(-2)
-  const year = dataAtual.getFullYear()
-  const dataFormatada = `${day}/${month}/${year}`
 
   const handlerButton = async function () {
     setIsLoading(true)
-    fetch('http://192.168.1.16:3000', {
+    fetch('http://localhost:3000', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        token: 'abcv',
+        token: HandlerToken(tipoToken),
         nome,
         tipoToken,
-        data: dataFormatada,
+        data: Data(true),
       }),
     })
       .then((response) => response.json())
       .then((data) => {
-        console.log('Response:', data)
+        console.log('Response:', data.token)
         if (data.status === 201) {
           navigation.dispatch(
             CommonActions.reset({
