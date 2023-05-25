@@ -1,5 +1,11 @@
+/* eslint-disable camelcase */
 import React from 'react'
-import { Text, StyleSheet, Image, TouchableOpacity, ActivityIndicator } from 'react-native'
+import {
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+  ActivityIndicator,
+} from 'react-native'
 import { useFonts, Oswald_400Regular } from '@expo-google-fonts/oswald'
 
 interface ButtonProps {
@@ -7,7 +13,10 @@ interface ButtonProps {
   isLoading?: boolean
 }
 
-export default function LoadingScreen({ onPress, isLoading = false }: ButtonProps) {
+export default function LoadingScreen({
+  onPress,
+  isLoading = false,
+}: ButtonProps) {
   const [fontLoaded] = useFonts({
     Oswald_400Regular,
   })
@@ -41,7 +50,7 @@ const styles = StyleSheet.create({
   },
   textBtn: {
     color: '#4F4343',
-    fontSize: 20,
+    fontSize: 15,
     fontWeight: 'bold',
     textAlign: 'center',
     fontFamily: 'Oswald_400Regular',

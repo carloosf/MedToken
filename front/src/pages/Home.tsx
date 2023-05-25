@@ -1,6 +1,8 @@
+/* eslint-disable jsx-a11y/alt-text */
 import React from 'react'
-import Token from './Token'
+import Token from '../components/Token'
 import { Text, StyleSheet, View, Image, ActivityIndicator } from 'react-native'
+// eslint-disable-next-line camelcase
 import { useFonts, Oswald_400Regular } from '@expo-google-fonts/oswald'
 
 interface HomeProps {

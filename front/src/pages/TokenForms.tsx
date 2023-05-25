@@ -1,20 +1,21 @@
 /* eslint-disable jsx-a11y/alt-text */
 import React, { useState } from 'react'
-import { StyleSheet, 
+import {
+  StyleSheet,
   View,
   TextInput,
   Image,
   Text,
   SafeAreaView,
   StatusBar,
-  KeyboardAvoidingView } from 'react-native'
+  KeyboardAvoidingView,
+} from 'react-native'
 // eslint-disable-next-line camelcase
 import { useFonts, Oswald_400Regular } from '@expo-google-fonts/oswald'
 import ModalDropdown from 'react-native-modal-dropdown'
-import { useNavigation } from '@react-navigation/native'
-import { CommonActions } from '@react-navigation/native'
+import { useNavigation, CommonActions } from '@react-navigation/native'
 
-import Button from './Button'
+import Button from '../components/Button'
 
 export default function TokenForms() {
   const [loading, setIsLoading] = useState(false)
@@ -30,17 +31,17 @@ export default function TokenForms() {
   const dataFormatada = `${day}/${month}/${year}`
 
   const data = {
-    token: '150646',
+    token: '150a646',
     nome,
     tipoExame: ficha,
     data: dataFormatada,
   }
 
-  const api = function () {
+  const handlerButton = function () {
     setIsLoading(true)
     console.log(data)
 
-    fetch('http://192.168.1.100:3000', {
+    fetch('http://192.168.1.16:3000', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -85,30 +86,36 @@ export default function TokenForms() {
       <SafeAreaView style={styles.container}>
         <StatusBar backgroundColor="#293645" />
         <Text style={styles.title}> Solicitação de Token </Text>
-        <KeyboardAvoidingView behavior='padding'>
-        <View style={styles.form}>
-          <TextInput
-              testID="token"
-              style={[styles.input, styles.inputName]}
-              placeholderTextColor="#7E998D"
-              autoComplete="name"
-              autoCapitalize="words"
-              placeholder="Digite seu nome aqui"
-              onChangeText={handleNomeChange}
-            />
-          <ModalDropdown
-            options={dropdownOptions}
-              defaultValue="Selecione uma opção..."
-            style={[styles.input]}
-              textStyle={styles.dropdownText}
-              dropdownStyle={styles.dropdownContainer}
-            dropdownTextStyle={styles.dropdownItemText}
-              onSelect={handleDropdownSelect}
-          />
-
-          <Button isLoading={loading} onPress={api} />
-          <Image source={require('../../assets/images/logo-ofc.png')} />
-        </View>
+        <KeyboardAvoidingView behavior="padding">
+          <View style={styles.form}>
+            <View>
+              <Text style={styles.label}>Nome:</Text>
+              <TextInput
+                style={[styles.input]}
+                placeholderTextColor="#7E998D"
+                autoComplete="name"
+                autoCapitalize="words"
+                placeholder="Digite seu nome aqui"
+                onChangeText={handleNomeChange}
+              />
+            </View>
+            <View>
+              <Text style={styles.label}>Opção de Atendimento:</Text>
+              <ModalDropdown
+                options={dropdownOptions}
+                defaultValue="Selecione uma opção..."
+                style={[styles.input]}
+                textStyle={styles.dropdownText}
+                dropdownStyle={styles.dropdownContainer}
+                dropdownTextStyle={styles.dropdownItemText}
+                onSelect={handleDropdownSelect}
+              />
+            </View>
+            <Button isLoading={loading} onPress={handlerButton} />
+          </View>
+          <View style={styles.logo}>
+            <Image source={require('../../assets/images/logo-ofc.png')} />
+          </View>
         </KeyboardAvoidingView>
       </SafeAreaView>
     )
@@ -123,41 +130,52 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   form: {
-    margin: 30,
-    height: 350,
-    justifyContent: 'space-around',
+    padding: '10%',
+    borderColor: 'white',
+    borderWidth: 2,
+    borderRadius: 10,
+    margin: '10%',
+    height: '60%',
+    width: '100%',
+    justifyContent: 'center',
     alignItems: 'center',
+    gap: 30,
   },
   input: {
     backgroundColor: 'white',
-    width: '70%',
+    width: 250,
     fontSize: 20,
-    borderRadius: 20,
+    height: 45,
+    borderRadius: 10,
     borderWidth: 1,
     borderColor: 'gray',
-    padding: 15,
-    color: '#7E998D',
+    paddingLeft: 19,
+    justifyContent: 'center',
+    color: 'black',
   },
-  inputName: {},
   dropdownText: {
     fontSize: 16,
   },
   dropdownContainer: {
-    width: 200,
     borderColor: 'gray',
   },
   dropdownItemText: {
     fontSize: 16,
-    paddingVertical: 10,
     paddingHorizontal: 20,
-  },
-  selectedItemText: {
-    marginTop: 20,
-    fontSize: 16,
   },
   title: {
     color: '#fff',
-    fontSize: 20,
+    fontSize: 23,
     fontFamily: 'Oswald_400Regular',
+  },
+  label: {
+    color: 'white',
+    fontSize: 17,
+    alignSelf: 'flex-start',
+    fontFamily: 'Oswald_400Regular',
+  },
+  logo: {
+    marginTop: 40,
+    alignSelf: 'center',
   },
 })

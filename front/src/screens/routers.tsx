@@ -2,8 +2,8 @@ import React from 'react'
 import { NavigationContainer, DefaultTheme } from '@react-navigation/native'
 import { createStackNavigator } from '@react-navigation/stack'
 
-import Home from '../components/Home'
-import TokenForms from '../components/TokenForms'
+import Home from '../pages/Home'
+import TokenForms from '../pages/TokenForms'
 
 const Stack = createStackNavigator()
 
