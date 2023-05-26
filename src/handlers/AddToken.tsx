@@ -1,7 +1,5 @@
-import { useState, useEffect } from 'react'
+import { useEffect } from 'react'
 export default function AddToken({ dados }) {
-  const [status, setStatus] = useState('')
-
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -19,14 +17,11 @@ export default function AddToken({ dados }) {
         })
         const data = await response.json()
         console.log('Response:', data.token)
-        setStatus(data.status)
       } catch (error) {
         console.error('Error:', error)
       }
     }
 
     fetchData()
-  }, [dados.date, dados.nome, dados.tipoToken, dados.token])
-
-  return { status }
+  }, [dados.date, dados.nome, dados.tipo, dados.tipoToken, dados.token])
 }

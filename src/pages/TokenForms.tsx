@@ -12,7 +12,7 @@ import {
   StatusBar,
   KeyboardAvoidingView,
 } from 'react-native'
-import { useNavigation, CommonActions } from '@react-navigation/native'
+// import { useNavigation, CommonActions } from '@react-navigation/native'
 import { useFonts, Oswald_400Regular } from '@expo-google-fonts/oswald'
 import ModalDropdown from 'react-native-modal-dropdown'
 
@@ -23,8 +23,8 @@ import StylesTokenForms from '../styles/Styles.TokenForms'
 // Handlers
 import Data from '../handlers/dataAtual'
 import AddToken from '../handlers/AddToken'
-// import handlerPrioridade from '../handlers/handlerPrioridade'
 import TokenIDCreate from '../controllers/tokenIDCreate'
+import handlerPrioridade from '../handlers/handlerPrioridade'
 const styles = StylesTokenForms
 
 export default function TokenForms() {
@@ -34,29 +34,27 @@ export default function TokenForms() {
   const [nome, setNome] = useState('')
   const [tipoToken, setTipoToken] = useState('')
 
-  const navigation = useNavigation()
+  // const navigation = useNavigation()
   const dados = {
     token: TokenIDCreate(tipoToken),
     name: nome,
     date: Data(true),
-    prioridade: 'SP',
-    // handlerPrioridade(tipoToken),
+    prioridade: handlerPrioridade(tipoToken),
   }
-
   const handlerButton = async function () {
     setIsLoading(true)
     console.log(JSON.stringify(dados))
     try {
       const data = await AddToken({ dados })
       console.log('Response:', data)
-      if (data.status === '201') {
+      /* if (d === 201) {
         navigation.dispatch(
           CommonActions.reset({
             index: 0,
             routes: [{ name: 'Home' }],
           }),
         )
-      }
+      } */
     } catch (error) {
       console.error('Error:', error)
     }
