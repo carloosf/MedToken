@@ -1,8 +1,9 @@
 /* eslint-disable camelcase */
 /* eslint-disable jsx-a11y/alt-text */
+
+// Dependencias
 import React, { useState } from 'react'
 import {
-  StyleSheet,
   View,
   TextInput,
   Image,
@@ -11,13 +12,20 @@ import {
   StatusBar,
   KeyboardAvoidingView,
 } from 'react-native'
+import { useNavigation, CommonActions } from '@react-navigation/native'
 import { useFonts, Oswald_400Regular } from '@expo-google-fonts/oswald'
 import ModalDropdown from 'react-native-modal-dropdown'
-// import { useNavigation, CommonActions } from '@react-navigation/native'
+
+// Componentes
 import Button from '../components/Button'
-import Data from '../handlers/dataAtual'
+import StylesTokenForms from '../styles/Styles.TokenForms'
+
+// Handlers
 import HandlerToken from '../handlers/handlerToken'
+import Data from '../handlers/dataAtual'
 import AddToken from '../handlers/AddToken'
+import handlerPrioridade from '../handlers/handlerPrioridade'
+const styles = StylesTokenForms
 
 export default function TokenForms() {
   const [loading, setIsLoading] = useState(false)
@@ -26,24 +34,34 @@ export default function TokenForms() {
   const [nome, setNome] = useState('')
   const [tipoToken, setTipoToken] = useState('')
 
-  const dados = [HandlerToken(tipoToken), nome, tipoToken, Data]
-
-  // const navigation = useNavigation()
+  const navigation = useNavigation()
+  const dados = {
+    token: HandlerToken(tipoToken),
+    name: nome,
+    date: Data(true),
+    prioridade: handlerPrioridade(tipoToken),
+  }
 
   const handlerButton = async function () {
     setIsLoading(true)
-    AddToken({ dados })
-    /* if (dados === 201) {
-      navigation.dispatch(
-        CommonActions.reset({
-          index: 0,
-          routes: [{ name: 'Home' }],
-        }),
-      )
+    console.log(JSON.stringify(dados))
+    try {
+      const data = await AddToken({ dados })
+      console.log('Response:', data.token)
+      if (data.status === '201') {
+        navigation.dispatch(
+          CommonActions.reset({
+            index: 0,
+            routes: [{ name: 'Home' }],
+          }),
+        )
+      }
+    } catch (error) {
+      console.error('Error:', error)
     }
     setTimeout(() => {
       setIsLoading(false)
-    }, 1000) */
+    }, 1000)
   }
 
   const handleNameChange = (text) => {
@@ -99,62 +117,3 @@ export default function TokenForms() {
     )
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    width: '100%',
-    height: '100%',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  form: {
-    padding: '10%',
-    borderColor: 'white',
-    borderWidth: 2,
-    borderRadius: 10,
-    marginBottom: '20%',
-    marginTop: '10%',
-    height: 350,
-    alignItems: 'center',
-    gap: 10,
-  },
-  input: {
-    backgroundColor: 'white',
-    width: 250,
-    fontSize: 20,
-    height: 45,
-    borderRadius: 10,
-    borderWidth: 1,
-    borderColor: 'gray',
-    paddingLeft: 19,
-    justifyContent: 'center',
-    color: 'black',
-  },
-  dropdownText: {
-    fontSize: 16,
-  },
-  dropdownContainer: {
-    borderColor: 'gray',
-  },
-  dropdownItemText: {
-    fontSize: 16,
-    paddingHorizontal: 20,
-  },
-  title: {
-    color: '#fff',
-    fontSize: 30,
-    fontFamily: 'Oswald_400Regular',
-  },
-  label: {
-    color: 'white',
-    fontSize: 17,
-    alignSelf: 'flex-start',
-    fontFamily: 'Oswald_400Regular',
-  },
-  logo: {
-    alignSelf: 'center',
-    justifyContent: 'center',
-    width: 40,
-    height: 40,
-  },
-})
