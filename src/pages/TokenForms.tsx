@@ -23,7 +23,7 @@ import StylesTokenForms from '../styles/Styles.TokenForms'
 // Handlers
 import Data from '../handlers/dataAtual'
 import AddToken from '../handlers/AddToken'
-import handlerPrioridade from '../handlers/handlerPrioridade'
+// import handlerPrioridade from '../handlers/handlerPrioridade'
 import TokenIDCreate from '../controllers/tokenIDCreate'
 const styles = StylesTokenForms
 
@@ -39,7 +39,8 @@ export default function TokenForms() {
     token: TokenIDCreate(tipoToken),
     name: nome,
     date: Data(true),
-    prioridade: handlerPrioridade(tipoToken),
+    prioridade: 'SP',
+    // handlerPrioridade(tipoToken),
   }
 
   const handlerButton = async function () {
