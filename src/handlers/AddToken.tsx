@@ -1,6 +1,4 @@
 import { useState, useEffect } from 'react'
-import Data from './dataAtual'
-import HandlerToken from './handlerToken'
 export default function AddToken({ dados }) {
   const [status, setStatus] = useState('')
 
@@ -13,9 +11,9 @@ export default function AddToken({ dados }) {
             'Content-Type': 'application/json',
           },
           body: JSON.stringify({
-            token: HandlerToken(dados.tipoToken),
+            token: dados.token,
             name: dados.nome,
-            date: Data(true),
+            date: dados.date,
             prioridade: dados.tipoToken,
           }),
         })
@@ -28,7 +26,7 @@ export default function AddToken({ dados }) {
     }
 
     fetchData()
-  }, [dados.nome, dados.tipoToken])
+  }, [dados.date, dados.nome, dados.tipoToken, dados.token])
 
   return { status }
 }

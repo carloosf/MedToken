@@ -1,19 +1,31 @@
-import { useState } from 'react'
+import GetMedtoken from '../services/GetMedtoken'
+import Data from '../handlers/dataAtual'
+import HandlerPrioridade from '../handlers/handlerPrioridade'
 
-export default async function TokenIDCreate(tipoToken: string) {
-  const [tokenID, setTokenID] = useState<string>('')
+export default async function TokenIDCreate(tipoFicha) {
+  const data = await GetMedtoken()
 
-  const response = await fetch('https://medtoken-api.onrender.com/')
-  const data = await response.json()
+  let id = 1
 
-  if (response.ok) {
-    const records = Array.isArray(data) ? data : []
-    const latestRecords = records.slice(-5)
+  if (data.length > 0) {
+    const tokensFiltered = data.filter(
+      (token) => token.prioridade === HandlerPrioridade(tipoFicha),
+    )
+    console.log(tokensFiltered)
 
-    setTokenID(latestRecords.map((record: any) => record.id).join(', '))
-  } else {
-    console.error('Error:', data)
+    if (tokensFiltered.length > 0) {
+      const lastToken = tokensFiltered[tokensFiltered.length - 1]
+      const regex = /(\d{2})(\d+)/
+      const matches = lastToken.token.match(regex)
+
+      if (matches) {
+        id = parseInt(matches[2]) + 1
+      }
+    }
   }
 
-  return tokenID
+  const novaFicha = `${Data(false)}${HandlerPrioridade(tipoFicha)}${id}`
+  console.log(`Nova ficha: ${novaFicha}`)
+
+  return novaFicha
 }

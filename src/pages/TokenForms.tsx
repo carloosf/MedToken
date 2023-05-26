@@ -21,10 +21,10 @@ import Button from '../components/Button'
 import StylesTokenForms from '../styles/Styles.TokenForms'
 
 // Handlers
-import HandlerToken from '../handlers/handlerToken'
 import Data from '../handlers/dataAtual'
 import AddToken from '../handlers/AddToken'
 import handlerPrioridade from '../handlers/handlerPrioridade'
+import TokenIDCreate from '../controllers/tokenIDCreate'
 const styles = StylesTokenForms
 
 export default function TokenForms() {
@@ -36,7 +36,7 @@ export default function TokenForms() {
 
   const navigation = useNavigation()
   const dados = {
-    token: HandlerToken(tipoToken),
+    token: TokenIDCreate(tipoToken),
     name: nome,
     date: Data(true),
     prioridade: handlerPrioridade(tipoToken),
@@ -47,7 +47,7 @@ export default function TokenForms() {
     console.log(JSON.stringify(dados))
     try {
       const data = await AddToken({ dados })
-      console.log('Response:', data.token)
+      console.log('Response:', data)
       if (data.status === '201') {
         navigation.dispatch(
           CommonActions.reset({
