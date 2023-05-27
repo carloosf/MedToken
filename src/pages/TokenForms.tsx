@@ -1,6 +1,7 @@
+/* eslint-disable jsx-a11y/alt-text */
 /* eslint-disable camelcase */
 // Dependencias
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import {
   View,
   TextInput,
@@ -16,16 +17,14 @@ import ModalDropdown from 'react-native-modal-dropdown'
 // Componentes
 import Button from '../components/Button'
 import StylesTokenForms from '../styles/Styles.TokenForms'
-<<<<<<< HEAD
 import TokenData from '../models/Model.Token'
-=======
->>>>>>> parent of a3c4322e (enviando pro banco)
 
 // Handlers
 import Data from '../handlers/handlerData'
-import AddToken from '../handlers/AddToken'
+
 import TokenIDCreate from '../handlers/tokenIDCreate'
 import handlerPrioridade from '../handlers/handlerPrioridade'
+import SetMedtoken from '../services/SetMedtoken'
 
 const styles = StylesTokenForms
 
@@ -33,40 +32,31 @@ export default function TokenForms() {
   const [loading, setIsLoading] = useState(false)
   const dropdownOptions = ['Preferencial', 'Geral', 'Exame']
 
-  const [nome, setNome] = useState('')
+  const [name, setName] = useState('')
   const [tipoToken, setTipoToken] = useState('')
 
   const handlerButton = async () => {
-    const token = await TokenIDCreate(tipoToken, Data)
+    setIsLoading(true)
+    const token = await TokenIDCreate(tipoToken)
     const prioridade = handlerPrioridade(tipoToken)
     const date = Data(true)
 
-<<<<<<< HEAD
     const dados: TokenData = {
       token,
       name,
       date,
       prioridade,
-=======
-      const dados = {
-        token: await token,
-        name: nome,
-        date,
-        prioridade,
-      }
-
-      const response = await AddToken({ dados })
-      console.log('Response:', response)
-    } catch (error) {
-      console.error('Error:', error)
->>>>>>> parent of a3c4322e (enviando pro banco)
     }
 
-    await AddToken(dados)
+    const response = await SetMedtoken(dados)
+    console.log(response)
+    setTimeout(() => {
+      setIsLoading(false)
+    }, 1000)
   }
 
   const handleNameChange = (text) => {
-    setNome(text)
+    setName(text)
   }
 
   const handleDropdownSelect = (index, value) => {
