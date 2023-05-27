@@ -36,23 +36,27 @@ export default function TokenForms() {
   const [tipoToken, setTipoToken] = useState('')
 
   const handlerButton = async () => {
-    setIsLoading(true)
-    const token = await TokenIDCreate(tipoToken)
-    const prioridade = handlerPrioridade(tipoToken)
-    const date = Data(true)
+    try {
+      setIsLoading(true)
+      const token = await TokenIDCreate(tipoToken)
+      const prioridade = handlerPrioridade(tipoToken)
+      const date = Data(true)
 
-    const dados: TokenData = {
-      token,
-      name,
-      date,
-      prioridade,
+      const dados: TokenData = {
+        token,
+        name,
+        date,
+        prioridade,
+      }
+
+      const response = await SetMedtoken(dados)
+      console.log(response)
+      setTimeout(() => {
+        setIsLoading(false)
+      }, 1000)
+    } catch (err) {
+      console.log('ERROR TOKENFORMS:' + err)
     }
-
-    const response = await SetMedtoken(dados)
-    console.log(response)
-    setTimeout(() => {
-      setIsLoading(false)
-    }, 1000)
   }
 
   const handleNameChange = (text) => {
