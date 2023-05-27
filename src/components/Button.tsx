@@ -11,11 +11,13 @@ import { useFonts, Oswald_400Regular } from '@expo-google-fonts/oswald'
 interface ButtonProps {
   onPress: () => void
   isLoading?: boolean
+  title: String
 }
 
 export default function LoadingScreen({
   onPress,
   isLoading = false,
+  title,
 }: ButtonProps) {
   const [fontLoaded] = useFonts({
     Oswald_400Regular,
@@ -32,7 +34,7 @@ export default function LoadingScreen({
         {isLoading ? (
           <ActivityIndicator color="#4F4343" />
         ) : (
-          <Text style={styles.textBtn}>Solicitar Token</Text>
+          <Text style={styles.textBtn}>{title}</Text>
         )}
       </TouchableOpacity>
     )

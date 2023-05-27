@@ -1,5 +1,3 @@
-/* eslint-disable no-unused-vars */
-import { useState } from 'react'
 import { View, Text, StyleSheet } from 'react-native'
 // eslint-disable-next-line camelcase
 import { useFonts, Oswald_400Regular } from '@expo-google-fonts/oswald'
@@ -14,12 +12,6 @@ export default function Token(props: TokenProps) {
     // eslint-disable-next-line camelcase
     Oswald_400Regular,
   })
-
-  const [listToken, setListToken] = useState([
-    ['202205P04', '02/05/2023'],
-    ['202205P02', '02/05/2023'],
-    ['202205P02', '02/05/2023'],
-  ])
 
   if (!fontLoaded) {
     return null

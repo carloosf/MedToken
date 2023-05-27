@@ -3,7 +3,7 @@ import { NavigationContainer, DefaultTheme } from '@react-navigation/native'
 import { createStackNavigator } from '@react-navigation/stack'
 
 import Home from '../pages/Home'
-import TokenForms from '../pages/TokenForms'
+import Form from '../pages/Form'
 
 const Stack = createStackNavigator()
 
@@ -19,8 +19,8 @@ function Routes() {
   return (
     <NavigationContainer theme={theme}>
       <Stack.Navigator screenOptions={{ headerShown: false }}>
-        <Stack.Screen name="TokenForms" component={TokenForms} />
         <Stack.Screen name="Home" component={Home} />
+        <Stack.Screen name="Form" component={Form} />
       </Stack.Navigator>
     </NavigationContainer>
   )

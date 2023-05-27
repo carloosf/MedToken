@@ -17,7 +17,7 @@ import { useNavigation } from '@react-navigation/native'
 
 // Componentes
 import Button from '../components/Button'
-import StylesTokenForms from '../styles/Styles.TokenForms'
+import StylesForm from '../styles/Styles.Form'
 import TokenData from '../models/Model.Token'
 
 // Handlers
@@ -27,9 +27,9 @@ import TokenIDCreate from '../handlers/tokenIDCreate'
 import handlerPrioridade from '../handlers/handlerPrioridade'
 import SetMedtoken from '../services/SetMedtoken'
 
-const styles = StylesTokenForms
+const styles = StylesForm
 
-export default function TokenForms() {
+export default function Form() {
   const [loading, setIsLoading] = useState(false)
   const navigation = useNavigation()
   const dropdownOptions = ['Preferencial', 'Geral', 'Exame']
@@ -40,6 +40,7 @@ export default function TokenForms() {
   const handlerButton = async () => {
     try {
       setIsLoading(true)
+      navigation.navigate('Home')
       const token = await TokenIDCreate(tipoToken)
       const prioridade = handlerPrioridade(tipoToken)
       const date = Data(true)
@@ -50,15 +51,13 @@ export default function TokenForms() {
         date,
         prioridade,
       }
-
       const response = await SetMedtoken(dados)
       console.log(response)
       setTimeout(() => {
         setIsLoading(false)
-        navigation.navigate('Home')
       }, 1000)
     } catch (err) {
-      console.log('ERROR TOKENFORMS:' + err)
+      console.log('ERROR FORMS:' + err)
     }
   }
 
@@ -68,6 +67,10 @@ export default function TokenForms() {
 
   const handleDropdownSelect = (index, value) => {
     setTipoToken(value)
+  }
+
+  const handlerButtonHome = () => {
+    navigation.navigate('Home', true)
   }
 
   const [fontLoaded] = useFonts({
@@ -106,12 +109,17 @@ export default function TokenForms() {
                 onSelect={handleDropdownSelect}
               />
             </View>
-            <Button isLoading={loading} onPress={handlerButton} />
+            <Button
+              title={'Solicitar Token'}
+              isLoading={loading}
+              onPress={handlerButton}
+            />
           </View>
           <Image
             source={require('../../assets/images/logo-ofc.png')}
             style={styles.logo}
           />
+          <Button isLoading={loading} title={'a'} onPress={handlerButtonHome} />
         </KeyboardAvoidingView>
       </SafeAreaView>
     )

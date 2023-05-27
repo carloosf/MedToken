@@ -9,6 +9,7 @@ import GetMedtoken from '../services/GetMedtoken'
 import Logo from '../components/Logo'
 import Line from '../components/Line'
 import { SafeAreaView } from 'react-navigation'
+import Data from '../handlers/handlerData'
 
 const styles = StylesHome
 
@@ -18,11 +19,16 @@ interface HomeProps {
 
 export default function Home({ token }: HomeProps) {
   const [tokensRecords, setTokensRecords] = useState([])
+
   useEffect(() => {
     const fetchTokensRecords = async () => {
       try {
         const [records] = await GetMedtoken()
         const formatTokensRecords = records
+          .filter((record) => {
+            const recordDate = record.date
+            return recordDate === Data(true)
+          })
           .map((record) => {
             let color = 'black'
             switch (record.prioridade) {
