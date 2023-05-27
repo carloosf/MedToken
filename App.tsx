@@ -1,5 +1,5 @@
-import Routes from './src/screens/routers'
+import Routes from './src/router/routers'
 
 export default function App() {
-  return <Routes></Routes>
+  return <Routes />
 }

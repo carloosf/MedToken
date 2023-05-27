@@ -1,8 +1,6 @@
 /* eslint-disable camelcase */
-/* eslint-disable jsx-a11y/alt-text */
-
 // Dependencias
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import {
   View,
   TextInput,
@@ -12,7 +10,6 @@ import {
   StatusBar,
   KeyboardAvoidingView,
 } from 'react-native'
-// import { useNavigation, CommonActions } from '@react-navigation/native'
 import { useFonts, Oswald_400Regular } from '@expo-google-fonts/oswald'
 import ModalDropdown from 'react-native-modal-dropdown'
 
@@ -23,8 +20,9 @@ import StylesTokenForms from '../styles/Styles.TokenForms'
 // Handlers
 import Data from '../handlers/dataAtual'
 import AddToken from '../handlers/AddToken'
-import TokenIDCreate from '../controllers/tokenIDCreate'
+import TokenIDCreate from '../handlers/tokenIDCreate'
 import handlerPrioridade from '../handlers/handlerPrioridade'
+
 const styles = StylesTokenForms
 
 export default function TokenForms() {
@@ -34,38 +32,30 @@ export default function TokenForms() {
   const [nome, setNome] = useState('')
   const [tipoToken, setTipoToken] = useState('')
 
-  // const navigation = useNavigation()
-  const dados = {
-    token: TokenIDCreate(tipoToken),
-    name: nome,
-    date: Data(true),
-    prioridade: handlerPrioridade(tipoToken),
-  }
-  const handlerButton = async function () {
-    setIsLoading(true)
-    console.log(JSON.stringify(dados))
+  const handlerButton = async () => {
     try {
-      const data = await AddToken({ dados })
-      console.log('Response:', data)
-      /* if (d === 201) {
-        navigation.dispatch(
-          CommonActions.reset({
-            index: 0,
-            routes: [{ name: 'Home' }],
-          }),
-        )
-      } */
+      const token = await TokenIDCreate(tipoToken)
+      const prioridade = handlerPrioridade(tipoToken)
+      const date = Data(true)
+
+      const dados = {
+        token: await token,
+        name: nome,
+        date,
+        prioridade,
+      }
+
+      const response = await AddToken({ dados })
+      console.log('Response:', response)
     } catch (error) {
       console.error('Error:', error)
     }
-    setTimeout(() => {
-      setIsLoading(false)
-    }, 1000)
   }
 
   const handleNameChange = (text) => {
     setNome(text)
   }
+
   const handleDropdownSelect = (index, value) => {
     setTipoToken(value)
   }
@@ -73,6 +63,7 @@ export default function TokenForms() {
   const [fontLoaded] = useFonts({
     Oswald_400Regular,
   })
+
   if (!fontLoaded) {
     return null
   } else {
@@ -98,7 +89,7 @@ export default function TokenForms() {
               <ModalDropdown
                 options={dropdownOptions}
                 defaultValue="Selecione uma opção..."
-                style={[styles.input]}
+                style={styles.input}
                 textStyle={styles.dropdownText}
                 dropdownStyle={styles.dropdownContainer}
                 dropdownTextStyle={styles.dropdownItemText}
