@@ -13,6 +13,7 @@ import {
 } from 'react-native'
 import { useFonts, Oswald_400Regular } from '@expo-google-fonts/oswald'
 import ModalDropdown from 'react-native-modal-dropdown'
+import { useNavigation } from '@react-navigation/native'
 
 // Componentes
 import Button from '../components/Button'
@@ -30,6 +31,7 @@ const styles = StylesTokenForms
 
 export default function TokenForms() {
   const [loading, setIsLoading] = useState(false)
+  const navigation = useNavigation()
   const dropdownOptions = ['Preferencial', 'Geral', 'Exame']
 
   const [name, setName] = useState('')
@@ -53,6 +55,7 @@ export default function TokenForms() {
       console.log(response)
       setTimeout(() => {
         setIsLoading(false)
+        navigation.navigate('Home')
       }, 1000)
     } catch (err) {
       console.log('ERROR TOKENFORMS:' + err)

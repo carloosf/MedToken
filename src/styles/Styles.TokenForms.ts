@@ -51,10 +51,4 @@ export default StyleSheet.create({
     alignSelf: 'flex-start',
     fontFamily: 'Oswald_400Regular',
   },
-  logo: {
-    alignSelf: 'center',
-    justifyContent: 'center',
-    width: 40,
-    height: 40,
-  },
 })
