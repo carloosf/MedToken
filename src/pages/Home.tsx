@@ -27,6 +27,7 @@ export default function Home({ token }: HomeProps) {
         const formatTokensRecords = records
           .filter((record) => {
             const recordDate = record.date
+            // Verifique se a data do registro é verdadeira, conforme sua lógica
             return recordDate === Data(true)
           })
           .map((record) => {
@@ -39,13 +40,13 @@ export default function Home({ token }: HomeProps) {
                 color = 'red'
                 break
               case 'SG':
-                color = 'yellow'
+                color = 'green'
                 break
             }
-            return [record.token, color]
+            return [record.token, color, record.id]
           })
-          .slice(0, 4)
           .reverse()
+          .slice(0, 4)
 
         setTokensRecords(formatTokensRecords)
       } catch (error) {
@@ -54,6 +55,9 @@ export default function Home({ token }: HomeProps) {
     }
     fetchTokensRecords()
   }, [])
+  for (const item of tokensRecords) {
+    console.log(item)
+  }
 
   const [fontLoaded] = useFonts({
     Oswald_400Regular,
