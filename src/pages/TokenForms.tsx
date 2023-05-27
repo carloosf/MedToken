@@ -17,10 +17,10 @@ import ModalDropdown from 'react-native-modal-dropdown'
 // Componentes
 import Button from '../components/Button'
 import StylesTokenForms from '../styles/Styles.TokenForms'
-import TokenData from '../handlers/Model.Token'
+import TokenData from '../models/Model.Token'
 
 // Handlers
-import Data from '../handlers/dataAtual'
+import Data from '../handlers/handlerData'
 import AddToken from '../handlers/AddToken'
 import TokenIDCreate from '../handlers/tokenIDCreate'
 import handlerPrioridade from '../handlers/handlerPrioridade'
@@ -36,23 +36,18 @@ export default function TokenForms() {
   const [tipoToken, setTipoToken] = useState('')
 
   const handlerButton = async () => {
-    try {
-      const token = await TokenIDCreate(tipoToken)
-      const prioridade = handlerPrioridade(tipoToken)
-      const date = Data(true)
+    const token = await TokenIDCreate(tipoToken, Data)
+    const prioridade = handlerPrioridade(tipoToken)
+    const date = Data(true)
 
-      const dados: TokenData = {
-        token,
-        name,
-        date,
-        prioridade,
-      }
-
-      const response = await AddToken(dados)
-      console.log(response)
-    } catch (error) {
-      console.error('Error FORM:', error)
+    const dados: TokenData = {
+      token,
+      name,
+      date,
+      prioridade,
     }
+
+    await AddToken(dados)
   }
 
   const handleNameChange = (text) => {
