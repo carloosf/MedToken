@@ -37,14 +37,14 @@ export default function Token(props: TokenProps) {
 const styles = StyleSheet.create({
   tokenContainer: {
     backgroundColor: '#fff',
-    width: 250,
+    width: '70%',
     height: 55,
     borderRadius: 5,
     alignItems: 'center',
     justifyContent: 'center',
   },
   tokenText: {
-    fontSize: 20,
+    fontSize: 22,
     fontWeight: 'bold',
     fontFamily: 'Oswald_400Regular',
   },

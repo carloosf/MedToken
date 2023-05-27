@@ -26,6 +26,7 @@ export default StyleSheet.create({
     margin: '5%',
   },
   records: {
+    width: '100%',
     alignItems: 'center',
     gap: 20,
   },

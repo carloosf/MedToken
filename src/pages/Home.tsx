@@ -18,15 +18,29 @@ interface HomeProps {
 
 export default function Home({ token }: HomeProps) {
   const [tokensRecords, setTokensRecords] = useState([])
-
   useEffect(() => {
     const fetchTokensRecords = async () => {
       try {
         const [records] = await GetMedtoken()
         const formatTokensRecords = records
-          .map((record) => record.token)
+          .map((record) => {
+            let color = 'black'
+            switch (record.prioridade) {
+              case 'SP':
+                color = 'blue'
+                break
+              case 'SE':
+                color = 'red'
+                break
+              case 'SG':
+                color = 'yellow'
+                break
+            }
+            return [record.token, color]
+          })
           .slice(0, 4)
           .reverse()
+
         setTokensRecords(formatTokensRecords)
       } catch (error) {
         console.log('Error fetching tokens records:', error)
@@ -56,7 +70,7 @@ export default function Home({ token }: HomeProps) {
           <Text style={styles.title}>Histórico de Solicitações</Text>
           <View style={styles.records}>
             {tokensRecords.map((token, index) => (
-              <Token key={index} idToken={token} color="black" />
+              <Token key={index} idToken={token[0]} color={token[1]} />
             ))}
           </View>
         </View>
