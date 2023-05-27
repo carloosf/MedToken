@@ -12,13 +12,15 @@ import { SafeAreaView } from 'react-navigation'
 import Data from '../handlers/handlerData'
 
 const styles = StylesHome
-
 interface HomeProps {
   token: React.ReactNode
+  router: string
 }
 
-export default function Home({ token }: HomeProps) {
+export default function Home({ token, router }: HomeProps) {
   const [tokensRecords, setTokensRecords] = useState([])
+  const { router: tokenUser } = router.params
+  console.log(tokenUser)
 
   useEffect(() => {
     const fetchTokensRecords = async () => {
@@ -71,7 +73,7 @@ export default function Home({ token }: HomeProps) {
         <View style={styles.headerHome}>
           <Logo />
           <Text style={styles.title}>Seu Token</Text>
-          <Token idToken="teste" color="black" />
+          <Token idToken={tokenUser} color="black" />
         </View>
         <View style={styles.lineConteiner}>
           <Line />

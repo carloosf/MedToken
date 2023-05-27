@@ -36,6 +36,7 @@ export default function Form() {
 
   const [name, setName] = useState('')
   const [tipoToken, setTipoToken] = useState('')
+  const [token, setToken] = useState
 
   const handlerButton = async () => {
     try {
@@ -44,7 +45,7 @@ export default function Form() {
       const token = await TokenIDCreate(tipoToken)
       const prioridade = handlerPrioridade(tipoToken)
       const date = Data(true)
-
+      setToken(token)
       const dados: TokenData = {
         token,
         name,
@@ -70,7 +71,7 @@ export default function Form() {
   }
 
   const handlerButtonHome = () => {
-    navigation.navigate('Home', true)
+    navigation.navigate('Home', { token })
   }
 
   const [fontLoaded] = useFonts({
