@@ -36,22 +36,25 @@ export default function Form() {
 
   const [name, setName] = useState('')
   const [tipoToken, setTipoToken] = useState('')
-  const [token, setToken] = useState
+  const [token, setToken] = useState('')
 
   const handlerButton = async () => {
     try {
       setIsLoading(true)
-      navigation.navigate('Home')
       const token = await TokenIDCreate(tipoToken)
+      setToken(token)
+      navigation.navigate('Home', token)
+
       const prioridade = handlerPrioridade(tipoToken)
       const date = Data(true)
-      setToken(token)
+
       const dados: TokenData = {
         token,
         name,
         date,
         prioridade,
       }
+
       const response = await SetMedtoken(dados)
       console.log(response)
       setTimeout(() => {
@@ -71,7 +74,7 @@ export default function Form() {
   }
 
   const handlerButtonHome = () => {
-    navigation.navigate('Home', { token })
+    navigation.navigate('Home', token)
   }
 
   const [fontLoaded] = useFonts({
@@ -120,7 +123,11 @@ export default function Form() {
             source={require('../../assets/images/logo-ofc.png')}
             style={styles.logo}
           />
-          <Button isLoading={loading} title={'a'} onPress={handlerButtonHome} />
+          <Button
+            isLoading={loading}
+            title={'Convidado'}
+            onPress={handlerButtonHome}
+          />
         </KeyboardAvoidingView>
       </SafeAreaView>
     )

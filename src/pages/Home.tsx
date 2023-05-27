@@ -10,17 +10,27 @@ import Logo from '../components/Logo'
 import Line from '../components/Line'
 import { SafeAreaView } from 'react-navigation'
 import Data from '../handlers/handlerData'
+import { useRoute, useNavigation, RouteProp } from '@react-navigation/native'
+import Button from '../components/Button'
 
 const styles = StylesHome
-interface HomeProps {
-  token: React.ReactNode
-  router: string
+
+type RootStackParamList = {
+  Home: { token: string }
 }
 
-export default function Home({ token, router }: HomeProps) {
+interface HomeProps {
+  token: String
+  route: RouteProp<RootStackParamList, 'Home'>
+}
+
+export default function Home({ token }: HomeProps) {
+  const navigation = useNavigation()
   const [tokensRecords, setTokensRecords] = useState([])
-  const { router: tokenUser } = router.params
-  console.log(tokenUser)
+  const route = useRoute()
+  const tokenUser = route.params || {}
+
+  console.log('Params: ' + tokenUser)
 
   useEffect(() => {
     const fetchTokensRecords = async () => {
@@ -61,6 +71,10 @@ export default function Home({ token, router }: HomeProps) {
     console.log(item)
   }
 
+  const handlerReturn = () => {
+    navigation.navigate('Form')
+  }
+
   const [fontLoaded] = useFonts({
     Oswald_400Regular,
   })
@@ -73,7 +87,11 @@ export default function Home({ token, router }: HomeProps) {
         <View style={styles.headerHome}>
           <Logo />
           <Text style={styles.title}>Seu Token</Text>
-          <Token idToken={tokenUser} color="black" />
+          {tokenUser.toString() === '[object Object]' ? (
+            <Button title="Obter Token" onPress={handlerReturn} />
+          ) : (
+            <Token idToken={tokenUser.toString()} color="black" />
+          )}
         </View>
         <View style={styles.lineConteiner}>
           <Line />

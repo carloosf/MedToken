@@ -50,6 +50,7 @@ const styles = StyleSheet.create({
     alignContent: 'center',
     justifyContent: 'center',
     borderRadius: 15,
+    alignSelf: 'center',
   },
   textBtn: {
     color: '#4F4343',
