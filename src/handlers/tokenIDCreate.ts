@@ -11,6 +11,7 @@ const TokenIDCreate = async (tipoFicha, dateTime) => {
   )
 
   const id = tokenToday.length + 1
+<<<<<<< HEAD
   let newToken = ''
 
   if (tokenToday.length < 9) {
@@ -18,7 +19,11 @@ const TokenIDCreate = async (tipoFicha, dateTime) => {
   } else {
     newToken = `${dateTime(false)}${HandlerPrioridade(tipoFicha)}${id}`
   }
+=======
+  const newToken = `${Data(false)}${HandlerPrioridade(tipoFicha)}${id}`
+>>>>>>> parent of a3c4322e (enviando pro banco)
   console.log('Novo token: ' + newToken)
+
   return newToken
 }
 export default TokenIDCreate
