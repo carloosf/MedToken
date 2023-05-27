@@ -1,6 +1,7 @@
+/* eslint-disable jsx-a11y/alt-text */
 /* eslint-disable camelcase */
 // Dependencias
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import {
   View,
   TextInput,
@@ -16,6 +17,7 @@ import ModalDropdown from 'react-native-modal-dropdown'
 // Componentes
 import Button from '../components/Button'
 import StylesTokenForms from '../styles/Styles.TokenForms'
+import TokenData from '../handlers/Model.Token'
 
 // Handlers
 import Data from '../handlers/dataAtual'
@@ -26,10 +28,11 @@ import handlerPrioridade from '../handlers/handlerPrioridade'
 const styles = StylesTokenForms
 
 export default function TokenForms() {
+  // eslint-disable-next-line no-unused-vars
   const [loading, setIsLoading] = useState(false)
   const dropdownOptions = ['Preferencial', 'Geral', 'Exame']
 
-  const [nome, setNome] = useState('')
+  const [name, setName] = useState('')
   const [tipoToken, setTipoToken] = useState('')
 
   const handlerButton = async () => {
@@ -38,22 +41,22 @@ export default function TokenForms() {
       const prioridade = handlerPrioridade(tipoToken)
       const date = Data(true)
 
-      const dados = {
-        token: await token,
-        name: nome,
+      const dados: TokenData = {
+        token,
+        name,
         date,
         prioridade,
       }
 
-      const response = await AddToken({ dados })
-      console.log('Response:', response)
+      const response = await AddToken(dados)
+      console.log(response)
     } catch (error) {
-      console.error('Error:', error)
+      console.error('Error FORM:', error)
     }
   }
 
   const handleNameChange = (text) => {
-    setNome(text)
+    setName(text)
   }
 
   const handleDropdownSelect = (index, value) => {

@@ -1,5 +1,6 @@
+import TokenData from './Model.Token'
 
-const AddToken = async (dados) => {
+const AddToken = async (dados: TokenData) => {
   try {
     const response = await fetch('https://medtoken-api.onrender.com/', {
       method: 'POST',
@@ -8,15 +9,15 @@ const AddToken = async (dados) => {
       },
       body: JSON.stringify({
         token: dados.token,
-        name: dados.nome,
+        name: dados.name,
         date: dados.date,
-        prioridade: dados.tipoToken,
+        prioridade: dados.prioridade,
       }),
     })
-    const data = await response.json()
-    console.log('Response:', data.token)
+    const responseData = await response.json()
+    return responseData
   } catch (error) {
-    console.error('Error:', error)
+    console.error('Error ADD:', error)
   }
 }
 

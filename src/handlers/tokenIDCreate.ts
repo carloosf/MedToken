@@ -12,9 +12,14 @@ const TokenIDCreate = async (tipoFicha) => {
   )
 
   const id = tokenToday.length + 1
-  const newToken = `${Data(false)}${HandlerPrioridade(tipoFicha)}${id}`
-  console.log('Novo token: ' + newToken)
+  let newToken = ''
 
+  if (tokenToday.length < 9) {
+    newToken = `${Data(false)}${HandlerPrioridade(tipoFicha)}0${id}`
+  } else {
+    newToken = `${Data(false)}${HandlerPrioridade(tipoFicha)}${id}`
+  }
+  console.log('Novo token: ' + newToken)
   return newToken
 }
 export default TokenIDCreate

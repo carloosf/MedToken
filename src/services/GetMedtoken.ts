@@ -7,11 +7,11 @@ export default async function GetMedtoken() {
       const status = response.status
       return [tokens, status]
     } else {
-      console.error('Error:', response.status)
+      console.error('Error GET:', response.status)
       return []
     }
   } catch (error) {
-    console.error('Error:', error)
+    console.error('Error GET:', error)
     return []
   }
 }
