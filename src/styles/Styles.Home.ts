@@ -23,6 +23,9 @@ export default StyleSheet.create({
     width: '100%',
     textAlign: 'center',
     textAlignVertical: 'center',
+  },
+
+  titleRecords: {
     margin: '5%',
   },
   records: {
@@ -33,5 +36,10 @@ export default StyleSheet.create({
   lineConteiner: {
     width: '100%',
     height: '8%',
+  },
+  relatorioContainer: {
+    alignSelf: 'center',
+    position: 'relative',
+    bottom: 6,
   },
 })

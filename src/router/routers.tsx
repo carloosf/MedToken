@@ -1,11 +1,12 @@
 import React from 'react'
 import { NavigationContainer, DefaultTheme } from '@react-navigation/native'
-import { createStackNavigator } from '@react-navigation/stack'
+import { createNativeStackNavigator } from '@react-navigation/native-stack'
 
 import Home from '../pages/Home'
 import Form from '../pages/Form'
+import Relatorio from '../pages/Relatorios'
 
-const Stack = createStackNavigator()
+const Stack = createNativeStackNavigator()
 
 const theme = {
   ...DefaultTheme,
@@ -21,6 +22,7 @@ function Routes() {
       <Stack.Navigator screenOptions={{ headerShown: false }}>
         <Stack.Screen name="Form" component={Form} />
         <Stack.Screen name="Home" component={Home} />
+        <Stack.Screen name="Relatorio" component={Relatorio} />
       </Stack.Navigator>
     </NavigationContainer>
   )

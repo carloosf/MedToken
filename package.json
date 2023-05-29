@@ -12,6 +12,7 @@
     "@expo-google-fonts/oswald": "^0.2.3",
     "@expo/webpack-config": "^18.0.1",
     "@react-navigation/native": "^6.1.6",
+    "@react-navigation/native-stack": "^6.9.12",
     "@react-navigation/stack": "^6.3.16",
     "@types/react": "~18.0.27",
     "address": "^1.2.2",

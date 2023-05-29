@@ -34,6 +34,7 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     alignItems: 'center',
     justifyContent: 'center',
+    flexDirection: 'row',
   },
   tokenText: {
     fontSize: 22,

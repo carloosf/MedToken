@@ -7,13 +7,13 @@ import {
   TextInput,
   Image,
   Text,
-  SafeAreaView,
   StatusBar,
   KeyboardAvoidingView,
 } from 'react-native'
 import { useFonts, Oswald_400Regular } from '@expo-google-fonts/oswald'
 import ModalDropdown from 'react-native-modal-dropdown'
 import { useNavigation } from '@react-navigation/native'
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 // Componentes
 import Button from '../components/Button'
@@ -35,15 +35,15 @@ export default function Form() {
   const dropdownOptions = ['Preferencial', 'Geral', 'Exame']
 
   const [name, setName] = useState('')
-  const [tipoToken, setTipoToken] = useState('')
   const [token, setToken] = useState('')
+  const [tipoToken, setTipoToken] = useState('')
 
   const handlerButton = async () => {
     try {
       setIsLoading(true)
       const token = await TokenIDCreate(tipoToken)
       setToken(token)
-      navigation.navigate('Home', token)
+      navigation.navigate('Home', { token, name })
 
       const prioridade = handlerPrioridade(tipoToken)
       const date = Data(true)
@@ -55,17 +55,16 @@ export default function Form() {
         prioridade,
       }
 
-      const response = await SetMedtoken(dados)
-      console.log(response)
+      await SetMedtoken(dados)
       setTimeout(() => {
         setIsLoading(false)
       }, 1000)
     } catch (err) {
-      console.log('ERROR FORMS:' + err)
+      console.error('ERROR FORMS:' + err)
     }
   }
 
-  const handleNameChange = (text) => {
+  const handleNameChange = (text: React.SetStateAction<string>) => {
     setName(text)
   }
 
@@ -74,7 +73,7 @@ export default function Form() {
   }
 
   const handlerButtonHome = () => {
-    navigation.navigate('Home', token)
+    navigation.navigate('Home')
   }
 
   const [fontLoaded] = useFonts({

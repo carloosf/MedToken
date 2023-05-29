@@ -3,9 +3,10 @@
     "name": "MedToken",
     "slug": "MedToken",
     "version": "1.0.0",
+    "githubUrl":"https://github.com/carloosf/MedToken",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
-    "userInterfaceStyle": "light",
+    "primaryColor":"#293645",
     "splash": {
       "image": "./assets/images/splash.png",
       "resizeMode": "contain",

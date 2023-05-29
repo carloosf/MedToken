@@ -1,5 +1,3 @@
-/* eslint-disable camelcase */
-/* eslint-disable jsx-a11y/alt-text */
 import React, { useEffect, useState } from 'react'
 import Token from '../components/Token'
 import StylesHome from '../styles/Styles.Home'
@@ -8,7 +6,7 @@ import { useFonts, Oswald_400Regular } from '@expo-google-fonts/oswald'
 import GetMedtoken from '../services/GetMedtoken'
 import Logo from '../components/Logo'
 import Line from '../components/Line'
-import { SafeAreaView } from 'react-navigation'
+import { SafeAreaView } from 'react-native-safe-area-context'
 import Data from '../handlers/handlerData'
 import { useRoute, useNavigation, RouteProp } from '@react-navigation/native'
 import Button from '../components/Button'
@@ -16,63 +14,62 @@ import Button from '../components/Button'
 const styles = StylesHome
 
 type RootStackParamList = {
-  Home: { token: string }
+  Home: { token: string; name: string }
 }
 
-interface HomeProps {
+interface HomeParams {
   token: String
-  route: RouteProp<RootStackParamList, 'Home'>
+  name: String
 }
 
-export default function Home({ token }: HomeProps) {
+export default function Home() {
   const navigation = useNavigation()
   const [tokensRecords, setTokensRecords] = useState([])
-  const route = useRoute()
-  const tokenUser = route.params || {}
-
-  console.log('Params: ' + tokenUser)
+  const route = useRoute<RouteProp<RootStackParamList, 'Home'>>()
+  const { name = null, token = null } = route.params || {}
+  console.log(name)
 
   useEffect(() => {
     const fetchTokensRecords = async () => {
       try {
         const [records] = await GetMedtoken()
         const formatTokensRecords = records
-          .filter((record) => {
-            const recordDate = record.date
-            // Verifique se a data do registro é verdadeira, conforme sua lógica
-            return recordDate === Data(true)
-          })
+          .filter(
+            (record) => record.date === Data(true) && record.status === false,
+          )
           .map((record) => {
             let color = 'black'
             switch (record.prioridade) {
               case 'SP':
-                color = 'blue'
+                color = '#F97068'
                 break
               case 'SE':
-                color = 'red'
+                color = '#5B6C9A'
                 break
               case 'SG':
-                color = 'green'
+                color = '#444545'
                 break
             }
-            return [record.token, color, record.id]
+            return [record.token, color, record.id, record.status]
           })
           .reverse()
-          .slice(0, 4)
+          .slice(0, 3)
 
         setTokensRecords(formatTokensRecords)
       } catch (error) {
-        console.log('Error fetching tokens records:', error)
+        console.error('Error fetching tokens records:', error)
       }
     }
     fetchTokensRecords()
+    const interval = setInterval(fetchTokensRecords, 15000)
+    return () => clearInterval(interval)
   }, [])
-  for (const item of tokensRecords) {
-    console.log(item)
-  }
 
   const handlerReturn = () => {
     navigation.navigate('Form')
+  }
+  const handlerRelatorio = () => {
+    navigation.navigate('Relatorio')
   }
 
   const [fontLoaded] = useFonts({
@@ -86,22 +83,36 @@ export default function Home({ token }: HomeProps) {
       <SafeAreaView style={styles.container}>
         <View style={styles.headerHome}>
           <Logo />
-          <Text style={styles.title}>Seu Token</Text>
-          {tokenUser.toString() === '[object Object]' ? (
+          <View style={styles.recordsContainer}>
+            {name === null ? (
+              <Text style={styles.title}>Olá, Convidado!</Text>
+            ) : (
+              <Text style={styles.title}>Olá, {name}</Text>
+            )}
+
+            <Text style={styles.title}>Seu Token</Text>
+          </View>
+          {token === null ? (
             <Button title="Obter Token" onPress={handlerReturn} />
           ) : (
-            <Token idToken={tokenUser.toString()} color="black" />
+            <Token idToken={token?.toString()} color="black" />
           )}
         </View>
         <View style={styles.lineConteiner}>
           <Line />
         </View>
         <View style={styles.recordsContainer}>
-          <Text style={styles.title}>Histórico de Solicitações</Text>
+          <Text style={[styles.title, styles.titleRecords]}>
+            Histórico de Solicitações
+          </Text>
           <View style={styles.records}>
             {tokensRecords.map((token, index) => (
               <Token key={index} idToken={token[0]} color={token[1]} />
             ))}
+
+            <View style={styles.relatorioContainer}>
+              <Button title={'Relatorio'} onPress={handlerRelatorio} />
+            </View>
           </View>
         </View>
       </SafeAreaView>
