@@ -15,15 +15,14 @@ export default StyleSheet.create({
     borderRadius: 10,
     marginBottom: '10%',
     marginTop: '10%',
-    height: 350,
+    height: 325,
     alignItems: 'center',
-    gap: 10,
   },
   input: {
     backgroundColor: 'white',
     width: 250,
-    fontSize: 20,
-    height: 45,
+    fontSize: 15,
+    height: 40,
     borderRadius: 10,
     borderWidth: 1,
     borderColor: 'gray',
@@ -32,7 +31,7 @@ export default StyleSheet.create({
     color: 'black',
   },
   tipoAtendimentoContainer: {
-    marginVertical: 15,
+    marginVertical: 20,
   },
   optionContainer: {
     marginTop: 10,
@@ -48,6 +47,8 @@ export default StyleSheet.create({
     color: 'white',
     fontSize: 17,
     alignSelf: 'flex-start',
+    marginBottom: 10,
+
     fontFamily: 'Oswald_400Regular',
   },
   logo: {
@@ -79,5 +80,9 @@ export default StyleSheet.create({
   },
   selectedButtonText: {
     color: 'white',
+  },
+  inputError: {
+    borderColor: 'rgb(131, 38, 38)',
+    borderWidth: 2,
   },
 })

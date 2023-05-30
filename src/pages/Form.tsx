@@ -1,7 +1,7 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable jsx-a11y/alt-text */
-/* eslint-disable camelcase */
 // Dependencias
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import {
   View,
   TextInput,
@@ -9,12 +9,10 @@ import {
   Text,
   StatusBar,
   KeyboardAvoidingView,
-  Platform,
   TouchableOpacity,
+  Animated,
 } from 'react-native'
-import { useFonts, Oswald_400Regular } from '@expo-google-fonts/oswald'
 import { useNavigation } from '@react-navigation/native'
-import { SafeAreaView } from 'react-native-safe-area-context'
 
 // Componentes
 import Button from '../components/Button'
@@ -37,10 +35,54 @@ export default function Form() {
   const [token, setToken] = useState('')
   const [tipoToken, setTipoToken] = useState('')
   const [selectedButton, setSelectedButton] = useState('')
+  const [isNameEmpty, setIsNameEmpty] = useState(false)
+  const [shakeAnimation] = useState(new Animated.Value(0))
+  useEffect(() => {
+    if (isNameEmpty) {
+      startShakeAnimation()
+    }
+  }, [isNameEmpty])
 
+  const startShakeAnimation = () => {
+    Animated.sequence([
+      Animated.timing(shakeAnimation, {
+        toValue: 10,
+        duration: 100,
+        useNativeDriver: true,
+      }),
+      Animated.timing(shakeAnimation, {
+        toValue: -10,
+        duration: 100,
+        useNativeDriver: true,
+      }),
+      Animated.timing(shakeAnimation, {
+        toValue: 10,
+        duration: 100,
+        useNativeDriver: true,
+      }),
+      Animated.timing(shakeAnimation, {
+        toValue: 0,
+        duration: 100,
+        useNativeDriver: true,
+      }),
+    ]).start()
+  }
   const handlerButton = async () => {
     try {
       setIsLoading(true)
+      startShakeAnimation()
+
+      if (!name) {
+        setIsLoading(false)
+        setIsNameEmpty(true)
+        return
+      }
+
+      if (!tipoToken) {
+        console.error('Tipo de atendimento não foi selecionado')
+        setIsLoading(false)
+        return
+      }
       const token = await TokenIDCreate(tipoToken)
       setToken(token)
       navigation.navigate('Home', { token, name })
@@ -66,113 +108,110 @@ export default function Form() {
 
   const handleNameChange = (text: React.SetStateAction<string>) => {
     setName(text)
+    setIsNameEmpty(false)
   }
 
-  const handleDropdownSelect = (value) => {
+  const handleOption = (value) => {
     setTipoToken(value)
     setSelectedButton(value)
-    console.log(tipoToken)
   }
 
   const handlerButtonHome = () => {
     navigation.navigate('Home')
   }
 
-  const [fontLoaded] = useFonts({
-    Oswald_400Regular,
-  })
-
-  if (!fontLoaded) {
-    return null
-  } else {
-    return (
-      <SafeAreaView style={styles.container}>
-        <StatusBar backgroundColor="#293645" />
-        <Text style={styles.title}> Solicitação de Token </Text>
-        <KeyboardAvoidingView
-          behavior="height"
-          keyboardVerticalOffset={Platform.OS === 'ios' ? 0 : -150}
-        >
-          <View style={styles.form}>
-            <View>
-              <Text style={styles.label}>Nome:</Text>
+  return (
+    <View style={styles.container}>
+      <StatusBar backgroundColor="#293645" />
+      <Text style={styles.title}> Solicitação de Token </Text>
+      <KeyboardAvoidingView behavior="height" keyboardVerticalOffset={0}>
+        <View style={styles.form}>
+          <Animated.View>
+            <Text style={styles.label}>Primeiro Nome:</Text>
+            <Animated.View
+              style={[
+                styles.input,
+                isNameEmpty && styles.inputError,
+                { transform: [{ translateX: shakeAnimation }] },
+              ]}
+            >
               <TextInput
-                style={[styles.input]}
                 placeholderTextColor="#7E998D"
                 autoComplete="name"
                 autoCapitalize="words"
                 placeholder="Digite seu nome aqui"
                 onChangeText={handleNameChange}
+                onBlur={() => {
+                  setIsNameEmpty(name.trim().length === 0)
+                }}
               />
-              <View>
-                <View style={styles.tipoAtendimentoContainer}>
-                  <Text style={styles.label}>Opção de Atendimento:</Text>
-                  <View style={styles.optionContainer}>
-                    <TouchableOpacity
+            </Animated.View>
+            <Animated.View>
+              <View style={styles.tipoAtendimentoContainer}>
+                <Text style={styles.label}>Opção de Atendimento:</Text>
+                <View style={styles.optionContainer}>
+                  <TouchableOpacity
+                    style={[
+                      styles.btnStyle,
+                      selectedButton === 'Exame' && styles.selectedButton,
+                    ]}
+                    onPress={() => handleOption('Exame')}
+                  >
+                    <Text
                       style={[
-                        styles.btnStyle,
-                        selectedButton === 'Exame' && styles.selectedButton,
+                        styles.textBtn,
+                        selectedButton === 'Exame' && styles.selectedButtonText,
                       ]}
-                      onPress={() => handleDropdownSelect('Exame')}
                     >
-                      <Text
-                        style={[
-                          styles.textBtn,
-                          selectedButton === 'Exame' &&
-                            styles.selectedButtonText,
-                        ]}
-                      >
-                        Exame
-                      </Text>
-                    </TouchableOpacity>
+                      Exame
+                    </Text>
+                  </TouchableOpacity>
 
-                    <TouchableOpacity
+                  <TouchableOpacity
+                    style={[
+                      styles.btnStyle,
+                      selectedButton === 'Geral' && styles.selectedButton,
+                    ]}
+                    onPress={() => handleOption('Geral')}
+                  >
+                    <Text
                       style={[
-                        styles.btnStyle,
-                        selectedButton === 'Geral' && styles.selectedButton,
+                        styles.textBtn,
+                        selectedButton === 'Geral' && styles.selectedButtonText,
                       ]}
-                      onPress={() => handleDropdownSelect('Geral')}
                     >
-                      <Text
-                        style={[
-                          styles.textBtn,
-                          selectedButton === 'Geral' &&
-                            styles.selectedButtonText,
-                        ]}
-                      >
-                        Geral
-                      </Text>
-                    </TouchableOpacity>
+                      Geral
+                    </Text>
+                  </TouchableOpacity>
 
-                    <TouchableOpacity
+                  <TouchableOpacity
+                    style={[
+                      styles.btnStyle,
+                      selectedButton === 'Preferencial' &&
+                        styles.selectedButton,
+                    ]}
+                    onPress={() => handleOption('Preferencial')}
+                  >
+                    <Text
                       style={[
-                        styles.btnStyle,
+                        styles.textBtn,
                         selectedButton === 'Preferencial' &&
-                          styles.selectedButton,
+                          styles.selectedButtonText,
                       ]}
-                      onPress={() => handleDropdownSelect('Preferencial')}
                     >
-                      <Text
-                        style={[
-                          styles.textBtn,
-                          selectedButton === 'Preferencial' &&
-                            styles.selectedButtonText,
-                        ]}
-                      >
-                        Preferencial
-                      </Text>
-                    </TouchableOpacity>
-                  </View>
+                      Preferencial
+                    </Text>
+                  </TouchableOpacity>
                 </View>
               </View>
-              <Button
-                title={'Solicitar Token'}
-                isLoading={loading}
-                onPress={handlerButton}
-              />
-            </View>
-          </View>
-        </KeyboardAvoidingView>
+            </Animated.View>
+            <Button
+              title={'Solicitar Token'}
+              isLoading={loading}
+              onPress={handlerButton}
+            />
+          </Animated.View>
+        </View>
         <Image
           source={require('../../assets/images/logo-ofc.png')}
           style={styles.logo}
@@ -182,7 +221,7 @@ export default function Form() {
           title={'Convidado'}
           onPress={handlerButtonHome}
         />
-      </SafeAreaView>
-    )
-  }
+      </KeyboardAvoidingView>
+    </View>
+  )
 }

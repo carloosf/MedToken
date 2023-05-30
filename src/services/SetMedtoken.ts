@@ -17,7 +17,7 @@ const SetMedtoken = async (dados: TokenData) => {
     const responseData = await response.json()
     return responseData
   } catch (err) {
-    console.log('ERROR TOKENFORMS:' + err)
+    console.log('ERROR SetToken:' + err)
   }
 }
 

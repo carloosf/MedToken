@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react'
 import Token from '../components/Token'
 import StylesHome from '../styles/Styles.Home'
 import { Text, View } from 'react-native'
-import { useFonts } from '@expo-google-fonts/oswald'
 import GetMedtoken from '../services/GetMedtoken'
 import Logo from '../components/Logo'
 import Line from '../components/Line'
@@ -17,18 +16,11 @@ type RootStackParamList = {
   Home: { token: string; name: string }
 }
 
-interface HomeParams {
-  token: String
-  name: String
-}
-
 export default function Home() {
   const navigation = useNavigation()
   const [tokensRecords, setTokensRecords] = useState([])
   const route = useRoute<RouteProp<RootStackParamList, 'Home'>>()
   const { name = null, token = null } = route.params || {}
-  console.log(name)
-
   useEffect(() => {
     const fetchTokensRecords = async () => {
       try {
@@ -61,9 +53,10 @@ export default function Home() {
       }
     }
     fetchTokensRecords()
-    const interval = setInterval(fetchTokensRecords, 15000)
+    const interval = setInterval(fetchTokensRecords, 5000)
     return () => clearInterval(interval)
   }, [])
+  console.log(tokensRecords)
 
   const handlerReturn = () => {
     navigation.navigate('Form')
@@ -72,50 +65,42 @@ export default function Home() {
     navigation.navigate('Relatorio')
   }
 
-  const [fontLoaded] = useFonts({
-    Oswald_400Regular: Number,
-  })
-
-  if (!fontLoaded) {
-    return null
-  } else {
-    return (
-      <SafeAreaView style={styles.container}>
-        <View style={styles.headerHome}>
-          <Logo />
-          <View style={styles.recordsContainer}>
-            {name === null ? (
-              <Text style={styles.title}>Olá, Convidado!</Text>
-            ) : (
-              <Text style={styles.title}>Olá, {name}</Text>
-            )}
-
-            <Text style={styles.title}>Seu Token</Text>
-          </View>
-          {token === null ? (
-            <Button title="Obter Token" onPress={handlerReturn} />
-          ) : (
-            <Token idToken={token?.toString()} color="black" />
-          )}
-        </View>
-        <View style={styles.lineConteiner}>
-          <Line />
-        </View>
+  return (
+    <SafeAreaView style={styles.container}>
+      <View style={styles.headerHome}>
+        <Logo />
         <View style={styles.recordsContainer}>
-          <Text style={[styles.title, styles.titleRecords]}>
-            Histórico de Solicitações
-          </Text>
-          <View style={styles.records}>
-            {tokensRecords.map((token, index) => (
-              <Token key={index} idToken={token[0]} color={token[1]} />
-            ))}
+          {name === null ? (
+            <Text style={styles.title}>Olá, Convidado!</Text>
+          ) : (
+            <Text style={styles.title}>Olá, {name}</Text>
+          )}
 
-            <View style={styles.relatorioContainer}>
-              <Button title={'Relatorio'} onPress={handlerRelatorio} />
-            </View>
+          <Text style={styles.title}>Seu Token</Text>
+        </View>
+        {token === null ? (
+          <Button title="Obter Token" onPress={handlerReturn} />
+        ) : (
+          <Token idToken={token?.toString()} color="black" />
+        )}
+      </View>
+      <View style={styles.lineConteiner}>
+        <Line />
+      </View>
+      <View style={styles.recordsContainer}>
+        <Text style={[styles.title, styles.titleRecords]}>
+          Histórico de Solicitações
+        </Text>
+        <View style={styles.records}>
+          {tokensRecords.map((token, index) => (
+            <Token key={index} idToken={token[0]} color={token[1]} />
+          ))}
+
+          <View style={styles.relatorioContainer}>
+            <Button title={'Relatorio'} onPress={handlerRelatorio} />
           </View>
         </View>
-      </SafeAreaView>
-    )
-  }
+      </View>
+    </SafeAreaView>
+  )
 }
