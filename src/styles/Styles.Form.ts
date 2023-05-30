@@ -2,17 +2,18 @@ import { StyleSheet } from 'react-native'
 
 export default StyleSheet.create({
   container: {
-    width: '100%',
-    height: '100%',
+    minWidth: '100%',
+    minHeight: '100%',
     justifyContent: 'center',
     alignItems: 'center',
+    flex: 1,
   },
   form: {
     padding: '10%',
     borderColor: 'white',
     borderWidth: 2,
     borderRadius: 10,
-    marginBottom: '20%',
+    marginBottom: '10%',
     marginTop: '10%',
     height: 350,
     alignItems: 'center',
@@ -30,15 +31,13 @@ export default StyleSheet.create({
     justifyContent: 'center',
     color: 'black',
   },
-  dropdownText: {
-    fontSize: 16,
+  tipoAtendimentoContainer: {
+    marginVertical: 15,
   },
-  dropdownContainer: {
-    borderColor: 'gray',
-  },
-  dropdownItemText: {
-    fontSize: 16,
-    paddingHorizontal: 20,
+  optionContainer: {
+    marginTop: 10,
+    justifyContent: 'space-between',
+    flexDirection: 'row',
   },
   title: {
     color: '#fff',
@@ -57,5 +56,28 @@ export default StyleSheet.create({
     alignSelf: 'center',
     width: 40,
     height: 40,
+  },
+  btnStyle: {
+    backgroundColor: '#fff',
+    padding: 5,
+    width: 80,
+    height: 28,
+    alignContent: 'center',
+    justifyContent: 'center',
+    borderRadius: 5,
+    alignSelf: 'center',
+  },
+  textBtn: {
+    color: '#4F4343',
+    fontSize: 12,
+    fontWeight: 'bold',
+    textAlign: 'center',
+    fontFamily: 'Oswald_400Regular',
+  },
+  selectedButton: {
+    backgroundColor: 'rgb(122, 62, 62)',
+  },
+  selectedButtonText: {
+    color: 'white',
   },
 })

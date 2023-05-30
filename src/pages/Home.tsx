@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import Token from '../components/Token'
 import StylesHome from '../styles/Styles.Home'
 import { Text, View } from 'react-native'
-import { useFonts, Oswald_400Regular } from '@expo-google-fonts/oswald'
+import { useFonts } from '@expo-google-fonts/oswald'
 import GetMedtoken from '../services/GetMedtoken'
 import Logo from '../components/Logo'
 import Line from '../components/Line'
@@ -73,7 +73,7 @@ export default function Home() {
   }
 
   const [fontLoaded] = useFonts({
-    Oswald_400Regular,
+    Oswald_400Regular: Number,
   })
 
   if (!fontLoaded) {
