@@ -6,9 +6,10 @@ import { Fila } from './src/handler/fila';
 const app = fastify();
 const prisma = new PrismaClient();
 
-app.get('/', async () => {
+app.get('/', async (req, reply) => {
   const tokens = await prisma.tokendb.findMany();
-  return { tokens };
+  
+  return reply.status(200), { tokens };
 });
 
 app.post('/', async (request, reply) => {

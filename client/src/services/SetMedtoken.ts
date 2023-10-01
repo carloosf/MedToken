@@ -1,21 +1,10 @@
 import TokenData from '../models/Model.Token'
+import axios from 'axios'
 
 const SetMedtoken = async (dados: TokenData) => {
   try {
-    const response = await fetch('http://localhost:3333', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        token: dados.token,
-        name: dados.name,
-        date: dados.date,
-        prioridade: dados.prioridade,
-      }),
-    })
-    console.log(response)
-    const responseData = await response.json()
+    const response = await axios.post('http://192.168.1.16:3333/', dados)
+    const responseData = await response.data // change response.json() to response.data
     return responseData
   } catch (err) {
     console.log('ERROR SetToken:' + err)

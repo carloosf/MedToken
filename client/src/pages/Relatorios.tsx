@@ -43,6 +43,7 @@ export default function Relatorio() {
     }
     fetchTokensRecords()
   }, [])
+  
   const handlerVoltar = () => {
     navigation.navigate('Home')
   }

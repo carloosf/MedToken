@@ -96,7 +96,6 @@ export default function Form() {
         date,
         prioridade,
       }
-
       await SetMedtoken(dados)
       setTimeout(() => {
         setIsLoading(false)
